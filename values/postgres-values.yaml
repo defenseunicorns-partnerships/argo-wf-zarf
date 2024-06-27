@@ -1,4 +1,8 @@
 enabled: "###ZARF_VAR_DEPLOY_POSTGRESQL###"
+image:
+  registry: "###ZARF_VAR_PSQL_REGISTRY###"
+  repository: "###ZARF_VAR_PSQL_REPO###"
+  tag: "###ZARF_VAR_PSQL_TAG###"
 auth:
   postgresPassword: "###ZARF_VAR_PG_PASSWORD###"
   username: "###ZARF_VAR_PG_USER###"
