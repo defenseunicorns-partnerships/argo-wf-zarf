@@ -1,0 +1,47 @@
+kind: ZarfPackageConfig
+metadata:
+  name: argo-workflows
+  description: Templated deployment of Argo Workflows
+variables:
+  - name: NAMESPACE
+    description: the namespace to deploy argo-workflows to
+    default: argo
+  - name: DEPLOY_POSTGRESQL
+    description: If "true", an in-cluster Postgresql instance will be deployed using the below variables
+  - name: PG_USER
+    description: The user to access the argo database in postgres
+  - name: PG_USER_PASSWORD
+    description: The user password to access the argo database in postgres
+  - name: PG_DB
+    description: Postgres argo database
+    prompt: true
+  - name: PG_HOST
+    description: Postgres hostname. If DEPLOY_POSTGRESQL is "true", then the value of this should be "dex-web-server-postgresql.dex-web-server.svc.cluster.local"
+    prompt: true
+  - name: PG_PORT
+    description: port to communicate with postgres. If DEPLOY_POSTGRESQL is "true", then the value of this should be "5432"
+  - name: PG_PASSWORD
+    description: Password for the user account specified in PG_USER. If DEPLOY_POSTGRESQL is "true", this will also be the password for the "postgres" admin user.
+    prompt: true
+    sensitive: true
+  - name: S3_ENDPOINT
+    description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
+    prompt: true
+  - name: S3_REGION
+    description: 'Region of the S3 bucket'
+    prompt: true
+  - name: S3_BUCKET_NAME
+    description: 'Name of the S3 bucket to use'
+    prompt: true
+  - name: S3_ACCESS_KEY
+    description: The Access key for the S3 service
+    prompt: true
+    sensitive: true
+  - name: S3_SECRET_KEY
+    description: The Secret key for the S3 service
+    prompt: true
+    sensitive: true
+  - name: IRSA_ROLE_ARN
+    description: The ARN of the IRSA Role to be used with the serviceaccounts
+    sensitive: true
+    prompt: true

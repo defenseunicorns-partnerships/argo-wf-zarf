@@ -159,9 +159,9 @@ controller:
   # # enable archiving of old workflows
     archive: true
     postgresql:
-      host: argo-postgresql.argo-workflows.svc.cluster.local
-      port: 5432
-      database: dex-workflows
+      host: "###ZARF_VAR_PG_HOST###"
+      port: "###ZARF_VAR_PG_PORT###"
+      database: "###ZARF_VAR_PG_DB###"
       tableName: argo_workflows
     #   # the database secrets must be in the same namespace of the controller
       userNameSecret:

@@ -1,0 +1,32 @@
+enabled: "###ZARF_VAR_DEPLOY_POSTGRESQL###"
+auth:
+  postgresPassword: "###ZARF_VAR_PG_PASSWORD###"
+  username: "###ZARF_VAR_PG_USER###"
+  password: "###ZARF_VAR_PG_USER_PASSWORD"
+  database: "###ZARF_VAR_PG_DB###"
+  architecture: standalone
+  primary:
+    service:
+      type: ClusterIP
+    persistence:
+      enabled: true
+      storageClass: local-path
+    podSecurityContext:
+      enabled: true
+      fsGroupChangePolicy: Always
+      sysctls: [ ]
+      supplementalGroups: [ ]
+      fsGroup: 1001
+    containerSecurityContext:
+      enabled: true
+      seLinuxOptions: { }
+      runAsUser: 1001
+      runAsGroup: 1001
+      runAsNonRoot: true
+      privileged: false
+      readOnlyRootFilesystem: false
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: [ "ALL" ]
+      seccompProfile:
+        type: "RuntimeDefault"
