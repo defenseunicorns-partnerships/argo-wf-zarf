@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: "###ZARF_VAR_NAMESPACE###"
+  labels:
+    istio-injection: enabled

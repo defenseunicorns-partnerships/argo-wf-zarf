@@ -2,6 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: server-role
+  namespace: "###ZARF_VAR_NAMESPACE###"
 rules:
 - apiGroups:
   - ""
@@ -106,6 +107,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: controller-role
+  namespace: "###ZARF_VAR_NAMESPACE###"
 rules:
 - apiGroups:
   - ""
@@ -235,6 +237,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: workflow-role
+  namespace: "###ZARF_VAR_NAMESPACE###"
 rules:
 - apiGroups:
   - argoproj.io

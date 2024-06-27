@@ -45,3 +45,41 @@ variables:
     description: The ARN of the IRSA Role to be used with the serviceaccounts
     sensitive: true
     prompt: true
+components:
+  - name: argo-setup
+    required: true
+    manifests:
+      - name: argo-namespace
+        files:
+          - manifests/namespace.yaml
+      - name: argo-setup
+        files:
+          - manifests/roles.yaml
+          - manifests/serviceaccounts.yaml
+      - name: argo-rolebindings
+        files:
+          - manifests/rolebindings.yaml
+  - name: postgresql
+    required: true
+    charts:
+      - name: postgresql
+        namespace: "###ZARF_VAR_NAMESPACE###"
+        version: 15.2.5
+        url: https://charts.bitnami.com/bitnami
+        repoName: postgresql
+        valuesFiles:
+          - values/postgres-values.yaml
+    manifests:
+      - name: postgres-secrets
+        files:
+          - manifests/postgres-secrets.yaml
+  - name: argo-workflows
+    required: true
+    charts:
+      - name: argo-workflows
+        namespace: "###ZARF_VAR_NAMESPACE###"
+        version: 0.41.11
+        url: https://argoproj.github.io/argo-helm
+        repoName: argo-workflows
+        valuesFiles:
+          - values/workflow-values.yaml
