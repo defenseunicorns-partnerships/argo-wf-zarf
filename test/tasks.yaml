@@ -1,0 +1,5 @@
+tasks:
+  - name: uds-up
+    description: Brings up uds-slim-dev
+    actions:
+      - cmd: uds deploy k3d-core-slim-dev:0.22.2
