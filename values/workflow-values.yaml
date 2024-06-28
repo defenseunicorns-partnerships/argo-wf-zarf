@@ -442,7 +442,7 @@ server:
     # -- Registry to use for the server
     registry: "###ZARF_VAR_ARGO_REGISTRY###"
     # -- Repository to use for the server
-    repository: "###ZARF_VAR_ARGO_REPO###/argocli"
+    repository: "###ZARF_VAR_ARGO_SERVER_REPO###/argocli"
     # -- Image tag for the Argo Workflows server. Defaults to `.Values.images.tag`.
     tag: ""
   # -- optional map of annotations to be applied to the ui Deployment

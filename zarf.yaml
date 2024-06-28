@@ -49,6 +49,8 @@ variables:
     description: Used with flavor, either quay.io or registry1.dso.mil
   - name: ARGO_REPO
     description: image repository prefix used with flavors
+  - name: ARGO_SERVER_REPO
+    description: image repository for argocli image
   - name: PSQL_REGISTRY
     description: Used with flavors to pull the psql image
   - name: PSQL_REPO
@@ -136,6 +138,16 @@ components:
     description: "Deploy Argo Workflow"
     only:
       flavor: vanilla
+    actions:
+      onDeploy:
+        before:
+          - cmd: echo "quay.io"
+            setVariables:
+              - name: ARGO_REGISTRY
+          - cmd: echo "argoproj"
+            setVariables:
+              - name: ARGO_REPO
+              - name: ARGO_SERVER_REPO
     charts:
       - name: argo-workflows
         namespace: "###ZARF_VAR_NAMESPACE###"
@@ -145,14 +157,26 @@ components:
         valuesFiles:
           - values/workflow-values.yaml
     images:
-      - quay.io/argoproj/workflow-controller:3.5.8
-      - quay.io/argoproj/argoexec:3.5.8
-      - quay.io/argoproj/argocli:3.5.8
+      - quay.io/argoproj/workflow-controller:v3.5.8
+      - quay.io/argoproj/argoexec:v3.5.8
+      - quay.io/argoproj/argocli:v3.5.8
   - name: argo-workflows
     required: true
     description: "Deploy Argo Workflow"
     only:
       flavor: ironbank
+    actions:
+      onDeploy:
+        before:
+          - cmd: echo "registry1.dso.mil"
+            setVariables:
+              - name: ARGO_REGISTRY
+          - cmd: echo "ironbank/kubeflow/argoproj"
+            setVariables:
+              - name: ARGO_REPO
+          - cmd: echo "ironbank/opensource/argoproj/argocli"
+            setVariables:
+              - name: ARGO_SERVER_REPO
     charts:
       - name: argo-workflows
         namespace: "###ZARF_VAR_NAMESPACE###"
@@ -162,6 +186,6 @@ components:
         valuesFiles:
           - values/workflow-values.yaml
     images:
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:3.5.8
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:3.5.8
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/argocli:3.5.8
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.5.8
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.8
+      - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.8

@@ -1,0 +1,11 @@
+variables:
+  uds-k3d-dev:
+    set:
+      buckets:
+        - name: "argo"
+          policy: "public"
+          purge: true
+      users:
+        - accessKey: test-user
+          secretKey: "test-secret"
+          policy: consoleAdmin
