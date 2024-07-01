@@ -9,29 +9,29 @@ auth:
   password: "###ZARF_VAR_PG_USER_PASSWORD"
   database: "###ZARF_VAR_PG_DB###"
   architecture: standalone
-  primary:
-    service:
-      type: ClusterIP
-    persistence:
-      enabled: true
-      storageClass: null
-    podSecurityContext:
-      enabled: true
-      fsGroupChangePolicy: Always
-      sysctls: [ ]
-      supplementalGroups: [ ]
-      runAsUser: 70
-      fsGroup: 70
-    containerSecurityContext:
-      enabled: true
-      seLinuxOptions: { }
-      runAsUser: 70
-      runAsGroup: 70
-      runAsNonRoot: true
-      privileged: false
-      readOnlyRootFilesystem: false
-      allowPrivilegeEscalation: false
-      capabilities:
-        drop: [ "ALL" ]
-      seccompProfile:
-        type: "RuntimeDefault"
+primary:
+  service:
+    type: ClusterIP
+  persistence:
+    enabled: true
+    storageClass: null
+  podSecurityContext:
+    enabled: true
+    fsGroupChangePolicy: Always
+    sysctls: [ ]
+    supplementalGroups: [ ]
+    runAsUser: 70
+    fsGroup: 70
+  containerSecurityContext:
+    enabled: true
+    seLinuxOptions: { }
+    runAsUser: 70
+    runAsGroup: 70
+    runAsNonRoot: true
+    privileged: false
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: [ "ALL" ]
+    seccompProfile:
+      type: "RuntimeDefault"
