@@ -69,6 +69,7 @@ components:
         files:
           - manifests/roles.yaml
           - manifests/serviceaccounts.yaml
+          - manifests/peer-auth.yaml
       - name: argo-rolebindings
         files:
           - manifests/rolebindings.yaml
