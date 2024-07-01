@@ -1,0 +1,11 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: hellow-world-
+spec:
+  archiveLogs: true
+  workflowTemplateRef:
+    name: hello-world-template
+  podMetadata:
+    annotations:
+      workflows.argoproj.io/kill-cmd-istio-proxy: '["pilot-agent", "request", "POST", "quitquitquit"]'

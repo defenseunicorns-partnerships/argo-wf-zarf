@@ -1,0 +1,204 @@
+kind: ZarfPackageConfig
+metadata:
+  name: argo-workflows
+  description: Templated deployment of Argo Workflows
+constants:
+  - name: NAMESPACE
+    description: the namespace to deploy argo-workflows to
+    value: argo
+variables:
+  - name: DEPLOY_POSTGRESQL
+    description: If "true", an in-cluster Postgresql instance will be deployed using the below variables
+  - name: PG_USER
+    description: The user to access the argo database in postgres
+  - name: PG_USER_PASSWORD
+    description: The user password to access the argo database in postgres
+  - name: PG_DB
+    description: Postgres argo database
+    prompt: true
+  - name: PG_HOST
+    description: Postgres hostname. If DEPLOY_POSTGRESQL is "true", then the value of this should be "dex-web-server-postgresql.dex-web-server.svc.cluster.local"
+    prompt: true
+  - name: PG_PORT
+    description: port to communicate with postgres. If DEPLOY_POSTGRESQL is "true", then the value of this should be "5432"
+  - name: PG_PASSWORD
+    description: Password for the user account specified in PG_USER. If DEPLOY_POSTGRESQL is "true", this will also be the password for the "postgres" admin user.
+    prompt: true
+    sensitive: true
+  - name: S3_ENDPOINT
+    description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
+    prompt: true
+  - name: S3_REGION
+    description: 'Region of the S3 bucket'
+    prompt: true
+  - name: S3_BUCKET_NAME
+    description: 'Name of the S3 bucket to use'
+    prompt: true
+  - name: S3_ACCESS_KEY
+    description: The Access key for the S3 service
+    prompt: true
+    sensitive: true
+  - name: S3_SECRET_KEY
+    description: The Secret key for the S3 service
+    prompt: true
+    sensitive: true
+  - name: DEFAULT_ARTIFACT_REPO
+    prompt: true
+    sensitive: false
+    description: choose between minio-artifact-repository or aws-artifact-repository
+    default: minio-artifact-repository
+  - name: IRSA_ROLE_ARN
+    description: The ARN of the IRSA Role to be used with the serviceaccounts
+    sensitive: true
+    prompt: true
+  - name: ARGO_REGISTRY
+    description: Used with flavor, either quay.io or registry1.dso.mil
+  - name: ARGO_REPO
+    description: image repository prefix used with flavors
+  - name: ARGO_SERVER_REPO
+    description: image repository for argocli image
+  - name: PSQL_REGISTRY
+    description: Used with flavors to pull the psql image
+  - name: PSQL_REPO
+    description: Used with flavors to pull the psql image
+  - name: PSQL_TAG
+    description: Used with flavors to pull the psql image
+components:
+  - name: argo-setup
+    required: true
+    manifests:
+      - name: argo-namespace
+        files:
+          - manifests/namespace.yaml
+      - name: argo-setup
+        files:
+          - manifests/roles.yaml
+          - manifests/serviceaccounts.yaml
+          - manifests/peer-auth.yaml
+      - name: argo-rolebindings
+        files:
+          - manifests/rolebindings.yaml
+  - name: dev-setup
+    required: true
+    manifests:
+      - name: minio-tokens
+        files:
+          - manifests/minio-secrets.yaml
+  - name: postgresql
+    required: true
+    description: "Deploy Postgresql"
+    only:
+      flavor: vanilla
+    actions:
+      onDeploy:
+        before:
+          - cmd: echo "docker.io"
+            setVariables:
+              - name: PSQL_REGISTRY
+          - cmd: echo "bitnami/postgresql"
+            setVariables:
+              - name: PSQL_REPO
+          - cmd: echo "15.6.0"
+            setVariables:
+              - name: PSQL_TAG
+    charts:
+      - name: postgresql
+        namespace: argo
+        version: 15.2.5
+        url: https://charts.bitnami.com/bitnami
+        repoName: postgresql
+        valuesFiles:
+          - values/postgres-values.yaml
+    manifests:
+      - name: postgres-secrets
+        files:
+          - manifests/postgres-secrets.yaml
+    images:
+      - bitnami/postgresql:15.6.0
+  - name: postgresql
+    required: true
+    description: "Deploy Postgresql"
+    only:
+      flavor: ironbank
+    actions:
+      onDeploy:
+        before:
+          - cmd: echo "registry1.dso.mil"
+            setVariables:
+              - name: PSQL_REGISTRY
+          - cmd: echo "ironbank/opensource/postgres/postgresql-alpine"
+            setVariables:
+              - name: PSQL_REPO
+          - cmd: echo "15.6"
+            setVariables:
+              - name: PSQL_TAG
+    charts:
+      - name: postgresql
+        namespace: argo
+        version: 15.2.5
+        url: https://charts.bitnami.com/bitnami
+        repoName: postgresql
+        valuesFiles:
+          - values/postgres-values.yaml
+    images:
+      - registry1.dso.mil/ironbank/opensource/postgres/postgresql-alpine:15.6
+    manifests:
+      - name: postgres-secrets
+        files:
+          - manifests/postgres-secrets.yaml
+  - name: argo-workflows
+    required: true
+    description: "Deploy Argo Workflow"
+    only:
+      flavor: vanilla
+    actions:
+      onDeploy:
+        before:
+          - cmd: echo "quay.io"
+            setVariables:
+              - name: ARGO_REGISTRY
+          - cmd: echo "argoproj"
+            setVariables:
+              - name: ARGO_REPO
+              - name: ARGO_SERVER_REPO
+    charts:
+      - name: argo-workflows
+        namespace: argo
+        version: 0.41.11
+        url: https://argoproj.github.io/argo-helm
+        repoName: argo-workflows
+        valuesFiles:
+          - values/workflow-values.yaml
+    images:
+      - quay.io/argoproj/workflow-controller:v3.5.8
+      - quay.io/argoproj/argoexec:v3.5.8
+      - quay.io/argoproj/argocli:v3.5.8
+  - name: argo-workflows
+    required: true
+    description: "Deploy Argo Workflow"
+    only:
+      flavor: ironbank
+    actions:
+      onDeploy:
+        before:
+          - cmd: echo "registry1.dso.mil"
+            setVariables:
+              - name: ARGO_REGISTRY
+          - cmd: echo "ironbank/kubeflow/argoproj"
+            setVariables:
+              - name: ARGO_REPO
+          - cmd: echo "ironbank/opensource/argoproj"
+            setVariables:
+              - name: ARGO_SERVER_REPO
+    charts:
+      - name: argo-workflows
+        namespace: argo
+        version: 0.41.11
+        url: https://argoproj.github.io/argo-helm
+        repoName: argo-workflows
+        valuesFiles:
+          - values/workflow-values.yaml
+    images:
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.5.8
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.8
+      - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.8

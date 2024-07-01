@@ -71,9 +71,9 @@ workflow:
 controller:
   image:
     # -- Registry to use for the controller
-    registry: registry1.dso.mil
-    # -- Registry to use for the controller
-    repository: ironbank/kubeflow/argoproj/workflow-controller
+    registry: "###ZARF_VAR_ARGO_REGISTRY###"
+    # -- Repository to use for the controller
+    repository: "###ZARF_VAR_ARGO_REPO###/workflow-controller"
     # -- Image tag for the workflow controller. Defaults to `.Values.images.tag`.
     tag: ""
   # -- parallelism dictates how many workflows can be running at the same time
@@ -159,9 +159,9 @@ controller:
   # # enable archiving of old workflows
     archive: true
     postgresql:
-      host: argo-postgresql.argo-workflows.svc.cluster.local
-      port: 5432
-      database: dex-workflows
+      host: "###ZARF_VAR_PG_HOST###"
+      port: !!int "###ZARF_VAR_PG_PORT###"
+      database: "###ZARF_VAR_PG_DB###"
       tableName: argo_workflows
     #   # the database secrets must be in the same namespace of the controller
       userNameSecret:
@@ -414,9 +414,9 @@ mainContainer:
 executor:
   image:
     # -- Registry to use for the Workflow Executors
-    registry: registry1.dso.mil
+    registry: "###ZARF_VAR_ARGO_REGISTRY###"
     # -- Repository to use for the Workflow Executors
-    repository: ironbank/kubeflow/argoproj/argoexec
+    repository: "###ZARF_VAR_ARGO_REPO###/argoexec"
     # -- Image tag for the workflow executor. Defaults to `.Values.images.tag`.
     tag: ""
     # -- Image PullPolicy to use for the Workflow Executors. Defaults to `.Values.images.pullPolicy`.
@@ -440,9 +440,9 @@ server:
   baseHref: /
   image:
     # -- Registry to use for the server
-    registry: regsitry1.dso.mil
+    registry: "###ZARF_VAR_ARGO_REGISTRY###"
     # -- Repository to use for the server
-    repository: ironbank/kubeflow/argoproj/argocli
+    repository: "###ZARF_VAR_ARGO_SERVER_REPO###/argocli"
     # -- Image tag for the Argo Workflows server. Defaults to `.Values.images.tag`.
     tag: ""
   # -- optional map of annotations to be applied to the ui Deployment
@@ -849,18 +849,30 @@ artifactRepositoryRef:
   artifact-repositories:
   #   # -- v3.0 and after - if you want to use a specific key, put that key into this annotation.
     annotations:
-      workflows.argoproj.io/default-artifact-repository: default-v1-s3-artifact-repository
+      workflows.argoproj.io/default-artifact-repository: "###ZARF_VAR_DEFAULT_ARTIFACT_REPO###"
   #   # 1st data of configmap. See above artifactRepository or customArtifactRepository.
-    default-v1-s3-artifact-repository:
+    aws-artifact-repository:
       archiveLogs: true
       s3:
-        bucket: "###ZARF_VAR_S3_ARTIFACT_BUCKET###"
+        bucket: "###ZARF_VAR_S3_BUCKET_NAME###"
         endpoint: "###ZARF_VAR_S3_ENDPOINT###"
         region: "###ZARF_VAR_S3_REGION###"
-        roleARN: "###ZARF_VAR_S3_ROLE_ARN###"
+        roleARN: "###ZARF_VAR_IRSA_ROLE_ARN###"
         encryptionOptions:
           enableEncryption: true
         insecure: false
+    minio-artifact-repository:
+      archiveLogs: true
+      s3:
+        bucket: "###ZARF_VAR_S3_BUCKET_NAME###"
+        endpoint: "###ZARF_VAR_S3_ENDPOINT###"
+        insecure: true
+        accessKeySecret:
+          name: minio-tokens
+          key: accesskey
+        secretKeySecret:
+          name: minio-tokens
+          key: secretkey
   #    # 2nd data
   #    oss-artifact-repository:
   #      archiveLogs: false
