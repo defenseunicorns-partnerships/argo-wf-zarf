@@ -11,7 +11,7 @@ tasks:
   - name: deploy-package
     description: Deploys the zarf package
     actions:
-      - cmd: | 
+      - cmd: |
           zarf -l debug --no-log-file package deploy \
           zarf-package-argo-workflows-amd64.tar.zst --confirm
   - name: deploy-hello-world-template
