@@ -12,4 +12,4 @@ package:
       S3_ACCESS_KEY: test-user
       S3_SECRET_KEY: test-secret
       S3_BUCKET_NAME: argo
-      DEFAULT_ARTIFACT_REPOSITORY: minio-artifact-reposit
+      DEFAULT_ARTIFACT_REPOSITORY: minio-artifact-repository
