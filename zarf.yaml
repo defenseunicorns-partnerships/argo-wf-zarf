@@ -42,6 +42,11 @@ variables:
     description: The Secret key for the S3 service
     prompt: true
     sensitive: true
+  - name: DEFAULT_ARTIFACT_REPO
+    prompt: true
+    sensitive: false
+    description: choose between minio-artifact-repository or aws-artifact-repository
+    default: minio-artifact-repository
   - name: IRSA_ROLE_ARN
     description: The ARN of the IRSA Role to be used with the serviceaccounts
     sensitive: true
@@ -73,6 +78,12 @@ components:
       - name: argo-rolebindings
         files:
           - manifests/rolebindings.yaml
+  - name: dev-setup
+    required: true
+    manifests:
+      - name: minio-tokens
+        files:
+          - manifests/minio-secrets.yaml
   - name: postgresql
     required: true
     description: "Deploy Postgresql"
@@ -176,7 +187,7 @@ components:
           - cmd: echo "ironbank/kubeflow/argoproj"
             setVariables:
               - name: ARGO_REPO
-          - cmd: echo "ironbank/opensource/argoproj/argocli"
+          - cmd: echo "ironbank/opensource/argoproj"
             setVariables:
               - name: ARGO_SERVER_REPO
     charts:

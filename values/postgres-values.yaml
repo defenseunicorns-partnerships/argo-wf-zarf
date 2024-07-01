@@ -6,7 +6,7 @@ image:
 auth:
   postgresPassword: "###ZARF_VAR_PG_PASSWORD###"
   username: "###ZARF_VAR_PG_USER###"
-  password: "###ZARF_VAR_PG_USER_PASSWORD"
+  password: "###ZARF_VAR_PG_USER_PASSWORD###"
   database: "###ZARF_VAR_PG_DB###"
   architecture: standalone
 primary:

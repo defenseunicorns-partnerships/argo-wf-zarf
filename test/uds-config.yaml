@@ -1,13 +1,12 @@
 variables:
   uds-k3d-dev:
-    set:
-      persistence:
-        size: 5Gi
-      buckets:
-        - name: "argo"
-          policy: "public"
-          purge: true
-      users:
-        - accessKey: test-user
-          secretKey: "test-secret"
-          policy: consoleAdmin
+    minio:
+      set:
+        buckets:
+          - name: "argo"
+            policy: "public"
+            purge: false
+        users:
+          - accessKey: test-user
+            secretKey: "test-secret"
+            policy: consoleAdmin
