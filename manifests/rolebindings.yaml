@@ -2,11 +2,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: binding-controller
-  namespace: "###ZARF_VAR_NAMESPACE###"
+  namespace: "###ZARF_CONST_NAMESPACE###"
 subjects:
 - kind: ServiceAccount
   name: controller-account
-  namespace: "###ZARF_VAR_NAMESPACE###"
+  namespace: "###ZARF_CONST_NAMESPACE###"
 roleRef:
   kind: Role
   name: controller-role
@@ -15,12 +15,12 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: binding-controller
-  namespace: "###ZARF_VAR_NAMESPACE###"
+  name: binding-server
+  namespace: "###ZARF_CONST_NAMESPACE###"
 subjects:
 - kind: ServiceAccount
   name: argo-server
-  namespace: "###ZARF_VAR_NAMESPACE###"
+  namespace: "###ZARF_CONST_NAMESPACE###"
 roleRef:
   kind: Role
   name: server-role
@@ -29,12 +29,12 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: binding-controller
-  namespace: "###ZARF_VAR_NAMESPACE###"
+  name: binding-workflow
+  namespace: "###ZARF_CONST_NAMESPACE###"
 subjects:
 - kind: ServiceAccount
   name: argo-workflow
-  namespace: "###ZARF_VAR_NAMESPACE###"
+  namespace: "###ZARF_CONST_NAMESPACE###"
 roleRef:
   kind: Role
   name: workflow-role

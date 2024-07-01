@@ -14,18 +14,19 @@ auth:
       type: ClusterIP
     persistence:
       enabled: true
-      storageClass: local-path
+      storageClass: null
     podSecurityContext:
       enabled: true
       fsGroupChangePolicy: Always
       sysctls: [ ]
       supplementalGroups: [ ]
-      fsGroup: 1001
+      runAsUser: 70
+      fsGroup: 70
     containerSecurityContext:
       enabled: true
       seLinuxOptions: { }
-      runAsUser: 1001
-      runAsGroup: 1001
+      runAsUser: 70
+      runAsGroup: 70
       runAsNonRoot: true
       privileged: false
       readOnlyRootFilesystem: false

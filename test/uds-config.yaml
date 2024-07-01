@@ -1,6 +1,8 @@
 variables:
   uds-k3d-dev:
     set:
+      persistence:
+        size: 5Gi
       buckets:
         - name: "argo"
           policy: "public"
