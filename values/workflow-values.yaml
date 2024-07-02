@@ -206,8 +206,7 @@ server:
     name: "argo-server"
   # -- A list of supported authentication modes. Available values are `server`, `client`, or `sso`. If you provide sso, please configure `.Values.server.sso` as well.
   ## Ref: https://argo-workflows.readthedocs.io/en/stable/argo-server-auth-mode/
-  authModes:
-    - client
+  authModes: []
   sso:
     enabled: false
 useStaticCredentials: "###ZARF_VAR_DEV_DEPLOYMENT###"

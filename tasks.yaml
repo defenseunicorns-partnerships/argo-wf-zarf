@@ -36,7 +36,6 @@ tasks:
   - name: workflows-up
     description: brings up everything from scratch (uds-slim-dev included)
     actions:
-      - cmd: rm zarf-package-*.tar.zst
       - task: uds-up
       - task: build-package
       - task: deploy-package
