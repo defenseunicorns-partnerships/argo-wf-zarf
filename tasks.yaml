@@ -2,11 +2,11 @@ tasks:
   - name: uds-up
     description: Brings up uds-slim-dev
     actions:
-      - cmd: uds deploy k3d-core-slim-dev:0.22.2
+      - cmd: cp test/zarf-config-dev.yaml ./zarf-config.yaml
+      - cmd: cd test && uds deploy k3d-core-slim-dev:0.22.2 -c
   - name: build-package
     description: Builds the zarf package to deploy vanilla argo workflows
     actions:
-      - cmd: cp test/zarf-config-dev.yaml ./zarf-config.yaml
       - cmd: zarf package create --skip-sbom --confirm --flavor vanilla
   - name: deploy-package
     description: Deploys the zarf package
@@ -14,11 +14,11 @@ tasks:
       - cmd: |
           zarf -l debug --no-log-file package deploy \
           zarf-package-argo-workflows-amd64.tar.zst --confirm
-  - name: deploy-hello-world-template
+  - name: deploy-template
     description: Deploys a hello-world WorkflowTemplateRef to test functionality
     actions:
       - cmd: kubectl apply -f test/workflows/hello-world-template.yaml
-  - name: submit-test-workflow
+  - name: submit-workflow
     description: Submits a test workflow with the hello-world template
     actions:
       - cmd: argo submit -n argo test/workflows/hello-world.yaml
@@ -26,25 +26,34 @@ tasks:
     description: uninstalls the zarf package
     actions:
       - cmd: zarf package remove zarf-package-argo-workflows-amd64.tar.zst --confirm
+      - cmd: kubectl delete namespace argo
+      - cmd: rm zarf-package-argo-*.tar.zst
   - name: remove-uds
     description: Uninstalls uds-slim-dev and the k3d cluster
     actions:
-      - cmd: uds remove k3d-core-slim-dev:0.22.2
+      - cmd: uds remove k3d-core-slim-dev:0.22.2 -c
       - cmd: k3d cluster delete uds
   - name: workflows-up
-    description: brings up all of argo workflows
+    description: brings up everything from scratch (uds-slim-dev included)
     actions:
       - cmd: rm zarf-package-*.tar.zst
       - task: uds-up
       - task: build-package
       - task: deploy-package
+  - name: recycle-workflows
+    description: removes the zarf package for argo, rebuilds it, then deploys it
+    actions:
+      - task: remove-package
+      - task: build-package
+      - task: deploy-package
   - name: test-workflows
     description: Submits a test workflow
     actions:
-      - task: deploy-hello-world-template
-      - task: submit-test-workflow
+      - task: deploy-template
+      - task: submit-workflow
   - name: cleanup
     description: Cleans up the deployment / cluster
     actions:
       - task: remove-package
+      - cmd: rm zarf-config.yaml
       - task: remove-uds

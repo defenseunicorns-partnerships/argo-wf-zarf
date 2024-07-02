@@ -13,3 +13,4 @@ package:
       S3_SECRET_KEY: test-secret
       S3_BUCKET_NAME: argo
       DEFAULT_ARTIFACT_REPOSITORY: minio-artifact-repository
+      DEV_DEPLOYMENT: true

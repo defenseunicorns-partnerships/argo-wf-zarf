@@ -1,11 +1,10 @@
 variables:
   uds-k3d-dev:
-    minio:
-      buckets:
+    buckets:
       - name: "argo"
         policy: "public"
         purge: false
-      users:
+    users:
       - accessKey: test-user
-        secretKey: "test-secret"
-        policy: readwrite
+        secretKey: test-secret
+        policy: "readwrite"

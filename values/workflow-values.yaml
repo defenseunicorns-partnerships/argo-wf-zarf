@@ -1,4 +1,3 @@
-
 crds:
   keep: false
 createAggregateRoles: false
@@ -21,7 +20,8 @@ controller:
   # -- Globally limits the rate at which pods are created.
   # This is intended to mitigate flooding of the Kubernetes API server by workflows with a large amount of
   # parallel nodes.
-  resourceRateLimit: {}
+  resourceRateLimit:
+    {}
     # limit: 10
     # burst: 1
   #TODO: Secret whitelisting?
@@ -78,14 +78,14 @@ controller:
         - ALL
   persistence:
     nodeStatusOffLoad: true
-  # # enable archiving of old workflows
+    # # enable archiving of old workflows
     archive: true
     postgresql:
       host: "###ZARF_VAR_PG_HOST###"
       port: !!int "###ZARF_VAR_PG_PORT###"
       database: "###ZARF_VAR_PG_DB###"
       tableName: argo_workflows
-    #   # the database secrets must be in the same namespace of the controller
+      #   # the database secrets must be in the same namespace of the controller
       userNameSecret:
         name: postgres-config
         key: PG_USER
@@ -161,7 +161,7 @@ controller:
   resources: {}
   clusterWorkflowTemplates:
     enabled: false
-  
+
   #TODO: Set retention policies
   # -- Workflow retention by number of workflows
   retentionPolicy: {}
@@ -217,10 +217,10 @@ artifactRepositoryRef:
   # # Otherwise, you can provide a reference to a
   # # different config map in `artifactRepositoryRef.configMap`.
   artifact-repositories:
-  #   # -- v3.0 and after - if you want to use a specific key, put that key into this annotation.
+    #   # -- v3.0 and after - if you want to use a specific key, put that key into this annotation.
     annotations:
       workflows.argoproj.io/default-artifact-repository: "###ZARF_VAR_DEFAULT_ARTIFACT_REPO###"
-  #   # 1st data of configmap. See above artifactRepository or customArtifactRepository.
+    #   # 1st data of configmap. See above artifactRepository or customArtifactRepository.
     aws-artifact-repository:
       archiveLogs: true
       s3:
