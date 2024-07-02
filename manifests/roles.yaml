@@ -98,6 +98,8 @@ rules:
   - ""
   resourceNames:
   - argo-workflows-agent-ca-certificates
+  - minio-tokens
+  - postgres-config
   resources:
   - secrets
   verbs:
@@ -204,14 +206,6 @@ rules:
   - get
   - delete
 - apiGroups:
-  - ""
-  resourceNames:
-  - postgres-config
-  resources:
-  - secrets
-  verbs:
-  - get
-- apiGroups:
   - coordination.k8s.io
   resourceNames:
   - workflow-controller
@@ -228,6 +222,8 @@ rules:
   - ""
   resourceNames:
   - argo-workflows-agent-ca-certificates
+  - minio-tokens
+  - postgres-config
   resources:
   - secrets
   verbs:
@@ -295,3 +291,13 @@ rules:
   - workflowartifactgctasks/status
   verbs:
   - patch
+- apiGroups:
+  - ""
+  resourceNames:
+  - argo-workflows-agent-ca-certificates
+  - minio-tokens
+  - postgres-config
+  resources:
+  - secrets
+  verbs:
+  - get
