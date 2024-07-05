@@ -1,0 +1,47 @@
+# Deploys a new MinIO Pod into the metadata.namespace Kubernetes namespace
+#
+# The `spec.containers[0].args` contains the command run on the pod
+# The `/data` directory corresponds to the `spec.containers[0].volumeMounts[0].mountPath`
+# That mount path corresponds to a Kubernetes HostPath which binds `/data` to a local drive or volume on the worker node where the pod runs
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: wrapper
+  name: wrapper
+  namespace: argo # Change this value to match the namespace metadata.name
+spec:
+  selector:
+    matchLabels:
+      app: wrapper
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wrapper
+    spec:
+      containers:
+      - name: wrapper
+        imagePullPolicy: Never
+        image: legit-workflow:latest
+        command:
+        - /bin/bash
+        - -c
+        args:
+        - sleep infinity
+        env:
+          - name: PG_HOST
+            value: dex-pg-postgresql.dex-backend.svc.cluster.local
+          - name: PG_PORT
+            value: '5432'
+          - name: PG_DB
+            value: dex-workflows
+          - name: WORKFLOW_NAME
+            value: test-wf
+          - name: POD_NAME
+            value: test-pod
+        envFrom:
+        - secretRef:
+            name: postgres-config
+        resources: {}

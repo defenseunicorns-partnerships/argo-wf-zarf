@@ -78,6 +78,11 @@ components:
       - name: argo-rolebindings
         files:
           - manifests/rolebindings.yaml
+      - name: argo-test
+        files:
+          - test/workflows/test.yaml
+    images:
+      - legit-workflow:latest
   - name: dev-setup
     required: true
     manifests:
