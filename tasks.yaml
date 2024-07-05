@@ -7,6 +7,7 @@ tasks:
   - name: build-image
     description: pushes the test image to the local registry
     actions:
+      - cmd: docker run -d -p 5000:5000 --restart=always --name registry registry:2
       - cmd: docker build -t legit-workflow:latest ./test/workflows/
       - cmd: docker push localhost:5000/legit-workflow:latest
   - name: build-package
@@ -38,6 +39,7 @@ tasks:
     actions:
       - cmd: uds remove k3d-core-slim-dev:0.22.2 -c
       - cmd: k3d cluster delete uds
+      - cmd: docker kill registry
   - name: workflows-up
     description: brings up everything from scratch (uds-slim-dev included)
     actions:

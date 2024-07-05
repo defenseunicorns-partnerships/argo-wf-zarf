@@ -32,11 +32,11 @@ spec:
         - sleep infinity
         env:
           - name: PG_HOST
-            value: dex-pg-postgresql.dex-backend.svc.cluster.local
+            value: postgresql.argo.svc.cluster.local
           - name: PG_PORT
             value: '5432'
           - name: PG_DB
-            value: dex-workflows
+            value: argo
           - name: WORKFLOW_NAME
             value: test-wf
           - name: POD_NAME
@@ -47,14 +47,7 @@ spec:
         resources: {}
         containerSecurityContext:
           enabled: true
-          seLinuxOptions: { }
-          runAsUser: 1001
-          runAsGroup: 1001
-          runAsNonRoot: true
-          privileged: false
+          runAsNonRoot: false
+          privileged: true
           readOnlyRootFilesystem: false
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: [ "ALL" ]
-          seccompProfile:
-            type: "RuntimeDefault"
+          allowPrivilegeEscalation: true
