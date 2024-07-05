@@ -4,6 +4,11 @@ tasks:
     actions:
       - cmd: cp test/zarf-config-dev.yaml ./zarf-config.yaml
       - cmd: cd test && uds deploy k3d-core-slim-dev:0.22.2 -c
+  - name: build-image
+    description: pushes the test image to the local registry
+    actions:
+      - cmd: docker build -t legit-workflow:latest ./test/workflows/
+      - cmd: docker push localhost:5000/legit-workflow:latest
   - name: build-package
     description: Builds the zarf package to deploy vanilla argo workflows
     actions:
