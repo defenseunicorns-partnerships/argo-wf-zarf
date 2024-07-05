@@ -24,7 +24,7 @@ spec:
       containers:
       - name: wrapper
         imagePullPolicy: Never
-        image: legit-workflow:latest
+        image: localhost:5000/legit-workflow:latest
         command:
         - /bin/bash
         - -c
