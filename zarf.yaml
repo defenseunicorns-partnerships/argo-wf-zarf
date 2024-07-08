@@ -147,7 +147,7 @@ components:
         files:
           - manifests/postgres-secrets.yaml
   - name: test-container
-    required: true
+    required: false
     description: container to test mc binaries and connections with
     manifests:
       - name: test-deployment
