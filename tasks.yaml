@@ -7,11 +7,20 @@ tasks:
       - cmd: cp test/zarf-config-dev.yaml ./zarf-config.yaml
       - cmd: cd test && uds deploy k3d-core-slim-dev:0.22.2 -c
   - name: registry-up
+    description: Creates a local docker registry for local package pushing to zarf
+    actions:
+      - cmd: docker run -d -p 5000:5000 --restart=always --name registry registry:2
+  - name: registry-down
+    description: Kills the local docker registry
     actions:
       - cmd: docker kill registry
-      - cmd: docker rm registry
-      - cmd: sleep 5
-      - cmd: docker run -d -p 5000:5000 --restart=always --name registry registry:2
+      - cmd: docker rm 
+  - name: recycle-registry
+    description: recycles the registry for recreating images
+    actions:
+      - task: registry-down
+      - cmd: sleep 2
+      - task: registry-up
   - name: build-image
     description: pushes the test image to the local registry
     actions:
