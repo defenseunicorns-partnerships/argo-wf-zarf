@@ -20,8 +20,10 @@ RUN chown -R 1001:1001 /data
 RUN chmod 755 /app/path
 RUN chmod 755 /data
 
+RUN mkdir /.mc
 RUN chmod +x /usr/bin/mc
 RUN chmod 777 /usr/bin/
+RUN chmod 777 /.mc
 
 USER 1001
 CMD ["sleep", "infinity"]
