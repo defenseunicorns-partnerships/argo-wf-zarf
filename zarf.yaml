@@ -153,6 +153,8 @@ components:
       - name: test-deployment
         files:
           - test/workflows/test.yaml
+    images:
+      - localhost:5000/legit-workflow:latest
   - name: argo-workflows
     required: true
     description: "Deploy Argo Workflow"

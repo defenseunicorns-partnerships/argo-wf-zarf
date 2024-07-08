@@ -2,13 +2,18 @@ tasks:
   - name: uds-up
     description: Brings up uds-slim-dev
     actions:
+      - task: registry-up
+      - task: build-image
       - cmd: cp test/zarf-config-dev.yaml ./zarf-config.yaml
       - cmd: cd test && uds deploy k3d-core-slim-dev:0.22.2 -c
+  - name: registry-up
+    actions:
+      - cmd: docker kill registry
+      - cmd: docker run -d -p 5000:5000 --restart=always --name registry registry:2
   - name: build-image
     description: pushes the test image to the local registry
     actions:
-      - cmd: docker run -d -p 5000:5000 --restart=always --name registry registry:2
-      - cmd: docker build -t legit-workflow:latest ./test/workflows/
+      - cmd: docker build -t localhost:5000/legit-workflow:latest ./test/workflows/
       - cmd: docker push localhost:5000/legit-workflow:latest
   - name: build-package
     description: Builds the zarf package to deploy vanilla argo workflows
@@ -44,6 +49,7 @@ tasks:
     description: brings up everything from scratch (uds-slim-dev included)
     actions:
       - task: uds-up
+      - task: build-image
       - task: build-package
       - task: deploy-package
   - name: recycle-workflows
