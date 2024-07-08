@@ -7,10 +7,10 @@ RUN apt-get update -y && apt-get upgrade -y \
    && apt-get install vim -y \
    && apt-get install curl -y
 
-COPY mc /usr/bin/
+#COPY mc /usr/bin/
 
-#RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc \
-   #-o /usr/bin
+RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+   -o /usr/bin
 
 RUN mkdir /data
 RUN mkdir /data/outputs
