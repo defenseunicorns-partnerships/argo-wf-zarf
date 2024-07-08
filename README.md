@@ -15,3 +15,12 @@ Most of the installation can be done via the tasks.yaml and `uds run` commands. 
 * `test-workflows`: Deploys a hello world template and submits a workflow for the template'
 * `recycle-workflows`: Removes the package, rebuilds it, and redeploys it.  Of note, changes you make to `zarf-config.yaml` will be reflected but not saved to `test/zarf-config-dev.yaml`
 * `cleanup`: removes everything and deletes the k3d cluster
+
+## Workflow specifics
+The `/test/workflows/` directory has a hello-world template and workflow to test the deployment.  If a workflow is failing you can elect to keep the pod alive to look at logs by adding the field `spec.podGC.strategy` and setting it to `OnWorkflowSuccess` (the deployment defaults it to `OnPodCompletion`).
+
+If you want to include local images into the zarf package, it's recommended to setup a local registry.  There is a test container that includes the minio mc binary that can be built and pushed into the registry.  If you wish to deploy this, then change the `test-container` component in `zarf.yaml` to `required: true`.
+
+You should also run the following targets with `uds run`:
+* `registry-up`: Creates the local docker registry
+* `build-image`: Runs the Dockerfile in `/test/workflows` and pushes it to the local registry
