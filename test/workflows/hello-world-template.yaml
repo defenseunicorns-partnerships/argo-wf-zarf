@@ -14,11 +14,17 @@ spec:
   templates:
   - name: whalesay
     container:
+      envFrom:
+        - secretRef:
+            name: minio-tokens
       image: docker.io/bitnami/postgresql:15.6.0
       command: ["/bin/bash", "-c"]
       args:
         - |
+          echo "$secretkey"
+          echo "$accesskey"
           echo "this is an artifact test" > /tmp/artifact.txt
+          echo "$(ls /tmp)"
     outputs:
       artifacts:
         - name: temp-artifact

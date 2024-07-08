@@ -94,6 +94,9 @@ controller:
         key: PG_USER_PASSWORD
   workflowDefaults:
     spec:
+      artifactRepositoryRef:
+        configMap: artifact-repositories
+        key: minio-artifact-repository
       ttlStrategy:
         secondsAfterSuccess: 30
       podGC:
@@ -218,7 +221,7 @@ artifactRepositoryRef:
   artifact-repositories:
     #   # -- v3.0 and after - if you want to use a specific key, put that key into this annotation.
     annotations:
-      workflows.argoproj.io/default-artifact-repository: "###ZARF_VAR_DEFAULT_ARTIFACT_REPO###"
+      workflows.argoproj.io/default-artifact-repository: minio-artifact-repository
     #   # 1st data of configmap. See above artifactRepository or customArtifactRepository.
     aws-artifact-repository:
       archiveLogs: true
