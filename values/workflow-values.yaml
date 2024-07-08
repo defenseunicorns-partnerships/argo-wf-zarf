@@ -94,9 +94,9 @@ controller:
         key: PG_USER_PASSWORD
   workflowDefaults:
     spec:
-      artifactRepositoryRef:
-        configMap: artifact-repositories
-        key: minio-artifact-repository
+      #artifactRepositoryRef:
+        #configMap: artifact-repositories
+        #key: minio-artifact-repository
       ttlStrategy:
         secondsAfterSuccess: 30
       podGC:
