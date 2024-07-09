@@ -94,6 +94,9 @@ controller:
         key: PG_USER_PASSWORD
   workflowDefaults:
     spec:
+      #artifactRepositoryRef:
+        #configMap: artifact-repositories
+        #key: minio-artifact-repository
       ttlStrategy:
         secondsAfterSuccess: 30
       podGC:
@@ -206,8 +209,7 @@ server:
     name: "argo-server"
   # -- A list of supported authentication modes. Available values are `server`, `client`, or `sso`. If you provide sso, please configure `.Values.server.sso` as well.
   ## Ref: https://argo-workflows.readthedocs.io/en/stable/argo-server-auth-mode/
-  authModes:
-    - client
+  authModes: []
   sso:
     enabled: false
 useStaticCredentials: "###ZARF_VAR_DEV_DEPLOYMENT###"
@@ -219,7 +221,7 @@ artifactRepositoryRef:
   artifact-repositories:
     #   # -- v3.0 and after - if you want to use a specific key, put that key into this annotation.
     annotations:
-      workflows.argoproj.io/default-artifact-repository: "###ZARF_VAR_DEFAULT_ARTIFACT_REPO###"
+      workflows.argoproj.io/default-artifact-repository: minio-artifact-repository
     #   # 1st data of configmap. See above artifactRepository or customArtifactRepository.
     aws-artifact-repository:
       archiveLogs: true
