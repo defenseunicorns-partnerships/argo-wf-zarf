@@ -24,16 +24,8 @@ controller:
     {}
     # limit: 10
     # burst: 1
-  #TODO: Secret whitelisting?
   rbac:
-    # -- Adds Role and RoleBinding for the controller.
     create: false
-    # -- Allows controller to get, list, and watch certain k8s secrets
-    secretWhitelist: []
-    # -- Allows controller to get, list and watch all k8s secrets. Can only be used if secretWhitelist is empty.
-    accessAllSecrets: false
-    # -- Allows controller to create and update ConfigMaps. Enables memoization feature
-    writeConfigMaps: false
   configMap:
     create: true
     name: "workflows"
@@ -68,7 +60,6 @@ controller:
     # -- ServiceMonitor will add labels from the service to the Prometheus metric
     ## Ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#servicemonitorspec
     targetLabels: []
-  # -- the controller container's securityContext
   securityContext:
     readOnlyRootFilesystem: true
     runAsNonRoot: true
@@ -78,14 +69,12 @@ controller:
         - ALL
   persistence:
     nodeStatusOffLoad: true
-    # # enable archiving of old workflows
     archive: true
     postgresql:
       host: "###ZARF_VAR_PG_HOST###"
       port: !!int "###ZARF_VAR_PG_PORT###"
       database: "###ZARF_VAR_PG_DB###"
       tableName: argo_workflows
-      #   # the database secrets must be in the same namespace of the controller
       userNameSecret:
         name: postgres-config
         key: PG_USER
@@ -94,9 +83,6 @@ controller:
         key: PG_USER_PASSWORD
   workflowDefaults:
     spec:
-      #artifactRepositoryRef:
-        #configMap: artifact-repositories
-        #key: minio-artifact-repository
       ttlStrategy:
         secondsAfterSuccess: 30
       podGC:
@@ -118,8 +104,6 @@ controller:
   # -- Number of cron workflow workers
   # Only valid for 3.5+
   cronWorkflowWorkers: # 8
-  # -- Restricts the Workflows that the controller will process.
-  # Only valid for 2.9+
   workflowRestrictions:
     templateReferencing: Secure
 
@@ -179,7 +163,6 @@ executor:
   securityContext:
     runAsNonRoot: true
     runAsUser: 1001
-
 server:
   enabled: true
   image:
@@ -195,7 +178,6 @@ server:
         - ALL
   rbac:
     create: false
-  # -- Servers container-level security context
   securityContext:
     readOnlyRootFilesystem: true
     runAsNonRoot: true
@@ -207,22 +189,14 @@ server:
   serviceAccount:
     create: false
     name: "argo-server"
-  # -- A list of supported authentication modes. Available values are `server`, `client`, or `sso`. If you provide sso, please configure `.Values.server.sso` as well.
-  ## Ref: https://argo-workflows.readthedocs.io/en/stable/argo-server-auth-mode/
-  authModes: []
+  authModes: ["client"]
   sso:
     enabled: false
 useStaticCredentials: "###ZARF_VAR_DEV_DEPLOYMENT###"
 artifactRepositoryRef:
-  # # -- 1st ConfigMap
-  # # If you want to use this config map by default, name it "artifact-repositories".
-  # # Otherwise, you can provide a reference to a
-  # # different config map in `artifactRepositoryRef.configMap`.
   artifact-repositories:
-    #   # -- v3.0 and after - if you want to use a specific key, put that key into this annotation.
     annotations:
-      workflows.argoproj.io/default-artifact-repository: minio-artifact-repository
-    #   # 1st data of configmap. See above artifactRepository or customArtifactRepository.
+      workflows.argoproj.io/default-artifact-repository: "###ZARF_VAR_DEFAULT_ARTIFACT_REPOSITORY###"
     aws-artifact-repository:
       archiveLogs: true
       s3:

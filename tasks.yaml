@@ -58,7 +58,6 @@ tasks:
     description: brings up everything from scratch (uds-slim-dev included)
     actions:
       - task: uds-up
-      - task: build-image
       - task: build-package
       - task: deploy-package
   - name: recycle-workflows
