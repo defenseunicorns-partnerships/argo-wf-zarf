@@ -10,7 +10,7 @@ RUN apt-get update -y && apt-get upgrade -y \
 #COPY mc /usr/bin/
 
 RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc \
-   -o /usr/bin
+   -o /usr/bin/
 
 RUN mkdir /data
 RUN mkdir /data/outputs

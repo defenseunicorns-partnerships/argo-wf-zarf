@@ -24,3 +24,13 @@ If you want to include local images into the zarf package, it's recommended to s
 You should also run the following targets with `uds run`:
 * `registry-up`: Creates the local docker registry
 * `build-image`: Runs the Dockerfile in `/test/workflows` and pushes it to the local registry
+
+## Using Argo Server with Client Auth
+The serviceaccount `wfapi` in the `argo` namespace has a token which can be found in the secret `wfapi.service-account-token`.  Programatically, it can be retrived by the following command:
+```bash
+ARGO_TOKEN="Bearer $(kubectl get secret jenkins.service-account-token -o=jsonpath='{.data.token}' | base64 --decode)"
+```
+An example command to list workflows:
+```bash
+curl http://argo-server.argo.svc.cluster.local:2746/api/v1/workspace/argo -H $ARGO_TOKEN
+```

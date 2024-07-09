@@ -43,7 +43,7 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: binding-server
+  name: binding-api
   namespace: "###ZARF_CONST_NAMESPACE###"
 subjects:
 - kind: ServiceAccount
