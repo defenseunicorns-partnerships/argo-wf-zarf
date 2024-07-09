@@ -196,7 +196,7 @@ useStaticCredentials: "###ZARF_VAR_DEV_DEPLOYMENT###"
 artifactRepositoryRef:
   artifact-repositories:
     annotations:
-      workflows.argoproj.io/default-artifact-repository: "###ZARF_VAR_DEFAULT_ARTIFACT_REPOSITORY"
+      workflows.argoproj.io/default-artifact-repository: "###ZARF_VAR_DEFAULT_ARTIFACT_REPOSITORY###"
     aws-artifact-repository:
       archiveLogs: true
       s3:
