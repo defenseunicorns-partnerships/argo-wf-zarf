@@ -33,7 +33,7 @@ tasks:
     actions:
       - cmd: |
           zarf -l debug --no-log-file package deploy \
-          zarf-package-argo-workflows-amd64.tar.zst --confirm
+          zarf-package-argo-workflows-*.tar.zst --confirm
   - name: deploy-template
     description: Deploys a hello-world WorkflowTemplateRef to test functionality
     actions:

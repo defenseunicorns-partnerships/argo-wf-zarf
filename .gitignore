@@ -1,0 +1,5 @@
+.idea/
+zarf-sbom/
+
+zarf-config.yaml
+*.tar.zst
