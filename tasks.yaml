@@ -1,39 +1,53 @@
 tasks:
-  - name: uds-up
-    description: Brings up uds-slim-dev
+  - name: clean
+    description: Clean the repo of all build/test artifacts
+    actions:
+      - cmd: rm -f zarf-config.yaml
+      - cmd: rm -f *.tar.zst
+      - cmd: rm -rf test/zarf-sbom
+  - name: test-copy-zarf-config
+    description: Copy the test zarf-config.yaml to the root folder
     actions:
       - cmd: cp test/zarf-config-dev.yaml ./zarf-config.yaml
+  - name: test-uds-up
+    description: Brings up uds-slim-dev
+    actions:
       - cmd: cd test && uds deploy k3d-core-slim-dev:0.22.2 -c
-  - name: registry-up
+  - name: test-registry-up
     description: Creates a local docker registry for local package pushing to zarf
     actions:
       - cmd: docker run -d -p 5000:5000 --restart=always --name registry registry:2
-  - name: registry-down
+  - name: test-registry-down
     description: Kills the local docker registry
     actions:
       - cmd: docker kill registry
       - cmd: docker rm registry
-  - name: recycle-registry
+  - name: test-recycle-registry
     description: recycles the registry for recreating images
     actions:
-      - task: registry-down
+      - task: test-registry-down
       - cmd: sleep 2
-      - task: registry-up
-  - name: build-image
+      - task: test-registry-up
+  - name: test-build-image
     description: pushes the test image to the local registry
     actions:
       - cmd: docker build -t localhost:5000/legit-workflow:latest ./test/workflows/
       - cmd: docker push localhost:5000/legit-workflow:latest
-  - name: build-package
-    description: Builds the zarf package to deploy vanilla argo workflows
+  - name: test-build-package
+    description: Builds the test zarf package to deploy vanilla argo workflows
     actions:
       - cmd: zarf package create --skip-sbom --confirm --flavor vanilla
-  - name: deploy-package
-    description: Deploys the zarf package
+  - name: build-package
+    description: Builds the production-level zarf package to deploy vanilla argo workflows
     actions:
+      - cmd: zarf package create --confirm --flavor vanilla
+  - name: test-deploy-package
+    description: Deploys the zarf package using the test zarf-config.yaml
+    actions:
+      - task: test-copy-zarf-config
       - cmd: |
           zarf -l debug --no-log-file package deploy \
-          zarf-package-argo-workflows-amd64.tar.zst --confirm
+          zarf-package-argo-workflows-*.tar.zst --confirm
   - name: deploy-template
     description: Deploys a hello-world WorkflowTemplateRef to test functionality
     actions:
@@ -57,15 +71,15 @@ tasks:
   - name: workflows-up
     description: brings up everything from scratch (uds-slim-dev included)
     actions:
-      - task: uds-up
-      - task: build-package
-      - task: deploy-package
+      - task: test-uds-up
+      - task: test-build-package
+      - task: test-deploy-package
   - name: recycle-workflows
     description: removes the zarf package for argo, rebuilds it, then deploys it
     actions:
       - task: remove-package
-      - task: build-package
-      - task: deploy-package
+      - task: test-build-package
+      - task: test-deploy-package
   - name: test-workflows
     description: Submits a test workflow
     actions:
