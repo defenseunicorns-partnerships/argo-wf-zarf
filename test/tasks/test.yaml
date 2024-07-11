@@ -1,28 +1,16 @@
 # These tasks are not meant to be run directly, they are imported by the tasks.yaml file in the root directory
 
 tasks:
-  - name: package-up
+  - name: template-up
     description: Builds and deploys the workflow testing package
     actions:
       - dir: test/workflows
-        cmd: |
-          docker kill registry || true
-          docker rm registry || true
-          docker run -d -p 45000:5000 --restart=always --name registry registry:2
-          docker build -t localhost:45000/legit-workflow:latest .
-          docker push localhost:45000/legit-workflow:latest
-          uds zarf package create --skip-sbom --confirm
-          docker kill registry
-          docker rm registry
-      - dir: test/workflows
-        cmd: |
-          uds zarf -l debug --no-log-file package deploy \
-          zarf-package-argo-workflows-testing-*.tar.zst --confirm
-  - name: package-down
+        cmd: uds zarf tools kubectl apply -f hello-world-template.yaml
+  - name: template-down
     description: Uninstalls the workflow testing package
     actions:
       - dir: test/workflows
-        cmd: uds zarf package remove zarf-package-argo-workflows-testing-*.tar.zst --confirm
+        cmd: uds zarf tools kubectl delete -f hello-world-template.yaml
   - name: submit-workflow
     description: Submits a test workflow with the hello-world template
     actions:

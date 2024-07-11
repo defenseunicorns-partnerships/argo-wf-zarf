@@ -18,6 +18,11 @@ tasks:
     description: Deploys the zarf package
     actions:
       - cmd: |
+          if [ ! -f zarf-config.yaml ]; then \
+            echo "No zarf-config.yaml found, exiting!"; \
+            exit 1; \
+          fi
+      - cmd: |
           uds zarf -l debug --no-log-file package deploy \
           zarf-package-argo-workflows-*.tar.zst --confirm
   - name: test
@@ -25,6 +30,7 @@ tasks:
     actions:
       - task: clean
       - task: ci:up
-      - task: test:package-up
+      - task: test:template-up
       - task: test:submit-workflow
       - task: ci:down
+      - task: clean
