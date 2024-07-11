@@ -6,14 +6,7 @@ tasks:
     actions:
       - dir: test/workflows
         cmd: |
-          docker kill registry || true
-          docker rm registry || true
-          docker run -d -p 45000:5000 --restart=always --name registry registry:2
-          docker build -t localhost:45000/legit-workflow:latest .
-          docker push localhost:45000/legit-workflow:latest
           uds zarf package create --skip-sbom --confirm
-          docker kill registry
-          docker rm registry
       - dir: test/workflows
         cmd: |
           uds zarf -l debug --no-log-file package deploy \
