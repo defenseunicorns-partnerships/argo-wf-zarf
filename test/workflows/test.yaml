@@ -24,7 +24,7 @@ spec:
       containers:
       - name: wrapper
         imagePullPolicy: Always
-        image: localhost:5000/legit-workflow:latest
+        image: localhost:45000/legit-workflow:latest
         command:
         - /bin/bash
         - -c
@@ -45,8 +45,7 @@ spec:
         - secretRef:
             name: postgres-config
         resources: {}
-        containerSecurityContext:
-          enabled: true
+        securityContext:
           runAsNonRoot: false
           privileged: true
           readOnlyRootFilesystem: false

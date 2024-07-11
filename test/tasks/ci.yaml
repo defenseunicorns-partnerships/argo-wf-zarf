@@ -1,0 +1,38 @@
+# These tasks are not meant to be run directly, they are imported by the tasks.yaml file in the root directory
+
+tasks:
+  - name: up
+    description: brings up everything from scratch (uds-slim-dev included)
+    actions:
+      - task: uds-up
+      - task: package-up
+  - name: down
+    description: bring everything down
+    actions:
+      - task: uds-down
+  - name: uds-up
+    description: Brings up uds-slim-dev
+    actions:
+      - cmd: cd test && uds deploy k3d-core-slim-dev:0.22.2 -c
+  - name: uds-down
+    description: Brings down uds-slim-dev and everything it contains
+    actions:
+      - cmd: k3d cluster delete uds
+  - name: package-up
+    description: Builds and deploys the zarf package using the test zarf-config.yaml
+    actions:
+      - cmd: cp test/zarf-config-dev.yaml ./zarf-config.yaml
+      - cmd: uds zarf package create --skip-sbom --confirm --flavor vanilla
+      - cmd: |
+          uds zarf -l debug --no-log-file package deploy \
+          zarf-package-argo-workflows-*.tar.zst --confirm
+  - name: package-down
+    description: Uninstalls the zarf package
+    actions:
+      - cmd: uds zarf package remove zarf-package-argo-workflows-*.tar.zst --confirm
+      - cmd: uds zarf tools kubectl delete namespace argo
+  - name: package-recycle
+    description: Bring down the package, rebuild, and redeploy
+    actions:
+      - task: package-down
+      - task: package-up

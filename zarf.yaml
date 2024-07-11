@@ -146,16 +146,6 @@ components:
       - name: postgres-secrets
         files:
           - manifests/postgres-secrets.yaml
-  ## uncomment to use a test container with local repository
-  #- name: test-container
-    #required: false
-    #description: container to test mc binaries and connections with
-    #manifests:
-      #- name: test-deployment
-        #files:
-          #- test/workflows/test.yaml
-    #images:
-      #- localhost:5000/legit-workflow:latest
   - name: argo-workflows
     required: true
     description: "Deploy Argo Workflow"

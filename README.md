@@ -3,7 +3,10 @@ Zarf package for Argo Workflows
 
 ## Prerequisites
 * UDS CLI: > v0.10.3
-* [Optional, required for some actions] [Argo CLI](https://argo-workflows.readthedocs.io/en/latest/walk-through/argo-cli/)
+* Docker
+* K3d
+* [Argo CLI](https://argo-workflows.readthedocs.io/en/latest/walk-through/argo-cli/)
+* Standard Linux tools like `rm`, `cp`, etc
 
 If trying to work with the `ironbank` flavor, you will need the following environment variables set:
 * `REGISTRY1_USERNAME`: username for registry1.dso.mil
@@ -11,19 +14,20 @@ If trying to work with the `ironbank` flavor, you will need the following enviro
 
 ## Installation
 Most of the installation can be done via the tasks.yaml and `uds run` commands.  Here are some good targets to start with:
-* `workflows-up`: A clean installation including a k3d cluster and uds-slim-dev installation
-* `test-workflows`: Deploys a hello world template and submits a workflow for the template
-* `recycle-workflows`: Removes the package, rebuilds it, and redeploys it.  Of note, changes you make to `zarf-config.yaml` will be reflected but not saved to `test/zarf-config-dev.yaml`
-* `cleanup`: removes everything and deletes the k3d cluster
+* `ci:up`: A clean installation including a k3d cluster and uds-slim-dev installation
+* `test:package-up`: Deploys a hello world WorkflowTemplate
+* `test:submit-workflow`: Submits a hello world workflow
+* `ci:package-recycle`: Removes the package, rebuilds it, and redeploys it.
+* `ci:down`: removes everything and deletes the k3d cluster
+* `clean`: Cleans the directory of all build/test artifacts
+* `test`: Runs the full end-to-end test suite
+
+Run `uds run --list-all` to see all available tasks.
 
 ## Workflow specifics
 The `/test/workflows/` directory has a hello-world template and workflow to test the deployment.  If a workflow is failing you can elect to keep the pod alive to look at logs by adding the field `spec.podGC.strategy` and setting it to `OnWorkflowSuccess` (the deployment defaults it to `OnPodCompletion`).
 
-If you want to include local images into the zarf package, it's recommended to set up a local registry.  There is a test container that includes the minio mc binary that can be built and pushed into the registry.  If you wish to deploy this, then change the `test-container` component in `zarf.yaml` to `required: true`.
-
-You should also run the following targets with `uds run`:
-* `registry-up`: Creates the local docker registry
-* `build-image`: Runs the Dockerfile in `/test/workflows` and pushes it to the local registry
+The Zarf package that deploys the test WorkflowTemplate also deploys a pod called "wrapper" that has some CLI tools installed so that you can shell into it for testing purposes.
 
 ## Using Argo Server with Client Auth
 The ServiceAccount `wfapi` in the `argo` namespace has a token which can be found in the secret `wfapi.service-account-token`.  Programmatically, it can be retrieved by the following command:
