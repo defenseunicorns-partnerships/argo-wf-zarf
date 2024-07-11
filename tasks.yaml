@@ -19,17 +19,18 @@ tasks:
     actions:
       - cmd: |
           if [ ! -f zarf-config.yaml ]; then \
-            cp test/zarf-config.dev.yaml ./zarf-config.yaml; \
+            echo "No zarf-config.yaml found, exiting!"; \
+            exit 1
           fi
-      #- #cmd: |
-          #uds zarf -l debug --no-log-file package deploy \
-          #zarf-package-argo-workflows-*.tar.zst --confirm
+      - cmd: |
+          uds zarf -l debug --no-log-file package deploy \
+          zarf-package-argo-workflows-*.tar.zst --confirm
   - name: test
     description: Run the full end-to-end test suite
     actions:
       - task: clean
       - task: ci:up
-      - task: test:package-up
+      - task: test:template-up
       - task: test:submit-workflow
       - task: ci:down
       - task: clean

@@ -1,16 +1,16 @@
 # These tasks are not meant to be run directly, they are imported by the tasks.yaml file in the root directory
 
 tasks:
-  - name: package-up
+  - name: template-up
     description: Builds and deploys the workflow testing package
     actions:
       - dir: test/workflows
         cmd: uds zarf tools kubectl apply -f hello-world-template.yaml
-  - name: package-down
+  - name: template-down
     description: Uninstalls the workflow testing package
     actions:
       - dir: test/workflows
-        cmd: uds zarf tools delete -f hello-world.yaml
+        cmd: uds zarf tools kubectl delete -f hello-world.yaml
   - name: submit-workflow
     description: Submits a test workflow with the hello-world template
     actions:
