@@ -32,3 +32,4 @@ tasks:
       - task: test:package-up
       - task: test:submit-workflow
       - task: ci:down
+      - task: clean
