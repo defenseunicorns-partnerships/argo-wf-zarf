@@ -18,8 +18,12 @@ tasks:
     description: Deploys the zarf package
     actions:
       - cmd: |
-          uds zarf -l debug --no-log-file package deploy \
-          zarf-package-argo-workflows-*.tar.zst --confirm
+          if [ ! -f zarf-config.yaml ]; then \
+            cp test/zarf-config.dev.yaml ./zarf-config.yaml; \
+          fi
+      #- #cmd: |
+          #uds zarf -l debug --no-log-file package deploy \
+          #zarf-package-argo-workflows-*.tar.zst --confirm
   - name: test
     description: Run the full end-to-end test suite
     actions:

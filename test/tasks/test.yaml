@@ -5,17 +5,12 @@ tasks:
     description: Builds and deploys the workflow testing package
     actions:
       - dir: test/workflows
-        cmd: |
-          uds zarf package create --skip-sbom --confirm
-      - dir: test/workflows
-        cmd: |
-          uds zarf -l debug --no-log-file package deploy \
-          zarf-package-argo-workflows-testing-*.tar.zst --confirm
+        cmd: uds zarf tools kubectl apply -f hello-world-template.yaml
   - name: package-down
     description: Uninstalls the workflow testing package
     actions:
       - dir: test/workflows
-        cmd: uds zarf package remove zarf-package-argo-workflows-testing-*.tar.zst --confirm
+        cmd: uds zarf tools delete -f hello-world.yaml
   - name: submit-workflow
     description: Submits a test workflow with the hello-world template
     actions:
