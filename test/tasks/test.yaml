@@ -10,7 +10,7 @@ tasks:
     description: Uninstalls the workflow testing package
     actions:
       - dir: test/workflows
-        cmd: uds zarf tools kubectl delete -f hello-world.yaml
+        cmd: uds zarf tools kubectl delete -f hello-world-template.yaml
   - name: submit-workflow
     description: Submits a test workflow with the hello-world template
     actions:

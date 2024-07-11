@@ -20,7 +20,7 @@ tasks:
       - cmd: |
           if [ ! -f zarf-config.yaml ]; then \
             echo "No zarf-config.yaml found, exiting!"; \
-            exit 1
+            exit 1; \
           fi
       - cmd: |
           uds zarf -l debug --no-log-file package deploy \
