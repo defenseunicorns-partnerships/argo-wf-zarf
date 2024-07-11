@@ -28,6 +28,3 @@ tasks:
       - task: test:package-up
       - task: test:submit-workflow
       - task: ci:down
-  - name: foo
-    actions:
-      - task: test:package-up
