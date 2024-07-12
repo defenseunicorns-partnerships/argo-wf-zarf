@@ -45,6 +45,10 @@ runs:
       shell: bash
       run: brew install yq
 
+    - name: Install Argo CLI
+      shell: bash
+      run: brew install argo
+
     - name: Run tests
       shell: bash
       run: uds run test --no-progress
