@@ -23,7 +23,7 @@ tasks:
             exit 1; \
           fi
       - cmd: |
-          uds zarf -l debug --no-log-file package deploy \
+          uds zarf -l debug --no-log-file --no-progress package deploy \
           zarf-package-argo-workflows-*.tar.zst --confirm
   - name: test
     description: Run the full end-to-end test suite
