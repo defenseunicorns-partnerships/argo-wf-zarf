@@ -15,8 +15,8 @@ If trying to work with the `ironbank` flavor, you will need the following enviro
 ## Installation
 Most of the installation can be done via the tasks.yaml and `uds run` commands.  Here are some good targets to start with:
 * `ci:up`: A clean installation including a k3d cluster and uds-slim-dev installation
-* `test:package-up`: Deploys a hello world WorkflowTemplate
-* `test:submit-workflow`: Submits a hello world workflow
+* `tests:package-up`: Deploys a hello world WorkflowTemplate
+* `tests:submit-workflow`: Submits a hello world workflow
 * `ci:package-recycle`: Removes the package, rebuilds it, and redeploys it.
 * `ci:down`: removes everything and deletes the k3d cluster
 * `clean`: Cleans the directory of all build/test artifacts

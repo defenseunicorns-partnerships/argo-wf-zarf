@@ -39,11 +39,15 @@ runs:
     - name: Install UDS CLI
       shell: bash
       # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
-      run: brew install defenseunicorns/tap/uds@0.11.2
+      run: brew install defenseunicorns/tap/uds@0.12.0
 
     - name: Install yq
       shell: bash
       run: brew install yq
+
+    - name: Install Argo CLI
+      shell: bash
+      run: brew install argo
 
     - name: Run tests
       shell: bash
