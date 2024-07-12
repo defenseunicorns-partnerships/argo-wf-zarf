@@ -1,6 +1,6 @@
 includes:
   - ci: test/tasks/ci.yaml
-  - test: test/tasks/test.yaml
+  - tests: test/tasks/test.yaml
 
 tasks:
   - name: clean
@@ -30,7 +30,7 @@ tasks:
     actions:
       - task: clean
       - task: ci:up
-      - task: test:template-up
-      - task: test:submit-workflow
+      - task: tests:template-up
+      - task: tests:submit-workflow
       - task: ci:down
       - task: clean
