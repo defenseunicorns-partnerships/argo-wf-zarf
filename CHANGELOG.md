@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.2](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.1...0.0.2) (2024-07-15)
+
+
+### Bug Fixes
+
+* remove wfapi serviceaccount ([#18](https://github.com/defenseunicorns/argo-wf-zarf/issues/18)) ([58dad60](https://github.com/defenseunicorns/argo-wf-zarf/commit/58dad6088a5145741696e52a767228193b08c183))
+
+
+### Continuous Integration
+
+* tag push workflow ([#20](https://github.com/defenseunicorns/argo-wf-zarf/issues/20)) ([a77fa49](https://github.com/defenseunicorns/argo-wf-zarf/commit/a77fa499f721724da1668f86652bb4a6143f1174))
+
 ## 0.0.1 (2024-07-12)
 
 
