@@ -99,12 +99,14 @@ components:
           - cmd: echo "bitnami/postgresql"
             setVariables:
               - name: PSQL_REPO
+          # renovate: datasource=docker depName=bitnami/postgresql
           - cmd: echo "15.6.0"
             setVariables:
               - name: PSQL_TAG
     charts:
       - name: postgresql
         namespace: argo
+        # renovate: datasource=helm depName=postgresql
         version: 15.2.5
         url: https://charts.bitnami.com/bitnami
         repoName: postgresql
@@ -115,6 +117,7 @@ components:
         files:
           - manifests/postgres-secrets.yaml
     images:
+      # renovate: datasource=docker depName=bitnami/postgresql
       - bitnami/postgresql:15.6.0
   - name: postgresql
     required: true
@@ -130,18 +133,21 @@ components:
           - cmd: echo "ironbank/opensource/postgres/postgresql-alpine"
             setVariables:
               - name: PSQL_REPO
+          # renovate: datasource=docker depName=registry1.dso.mil/ironbank/opensource/postgres/postgresql-alpine
           - cmd: echo "15.6"
             setVariables:
               - name: PSQL_TAG
     charts:
       - name: postgresql
         namespace: argo
+        # renovate: datasource=helm depName=postgresql
         version: 15.2.5
         url: https://charts.bitnami.com/bitnami
         repoName: postgresql
         valuesFiles:
           - values/postgres-values.yaml
     images:
+      # renovate: datasource=docker depName=registry1.dso.mil/ironbank/opensource/postgres/postgresql-alpine
       - registry1.dso.mil/ironbank/opensource/postgres/postgresql-alpine:15.6
     manifests:
       - name: postgres-secrets
@@ -165,14 +171,18 @@ components:
     charts:
       - name: argo-workflows
         namespace: argo
+        # renovate: datasource=helm depName=argo-workflows
         version: 0.41.11
         url: https://argoproj.github.io/argo-helm
         repoName: argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
     images:
+      # renovate: datasource=github-tags depName=argoproj/argo-workflows
       - quay.io/argoproj/workflow-controller:v3.5.8
+      # renovate: datasource=github-tags depName=argoproj/argo-workflows
       - quay.io/argoproj/argoexec:v3.5.8
+      # renovate: datasource=github-tags depName=argoproj/argo-workflows
       - quay.io/argoproj/argocli:v3.5.8
   - name: argo-workflows
     required: true
@@ -194,12 +204,17 @@ components:
     charts:
       - name: argo-workflows
         namespace: argo
+        # renovate: datasource=helm depName=argo-workflows
         version: 0.41.11
         url: https://argoproj.github.io/argo-helm
         repoName: argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
     images:
+      # renovate: datasource=docker depName=registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller
       - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.5.8
+      # renovate: datasource=docker depName=registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec
       - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.8
+      # renovate: datasource=docker depName=registry1.dso.mil/ironbank/opensource/argoproj/argocli
       - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.8
+
