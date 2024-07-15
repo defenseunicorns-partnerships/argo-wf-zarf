@@ -30,7 +30,20 @@ The `/test/workflows/` directory has a hello-world template and workflow to test
 The Zarf package that deploys the test WorkflowTemplate also deploys a pod called "wrapper" that has some CLI tools installed so that you can shell into it for testing purposes.
 
 ## Using Argo Server with Client Auth
-The ServiceAccount `wfapi` in the `argo` namespace has a token which can be found in the secret `wfapi.service-account-token`.  Programmatically, it can be retrieved by the following command:
+You will need a token to use the Argo Server with Client Auth.  A token can be created for an existing serviceaccount by creating a kubernetes secret with the following pattern:
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wfapi.service-account-token
+  namespace: argo
+  annotations:
+    kubernetes.io/service-account.name: wfapi
+type: kubernetes.io/service-account-token
+```
+This assumes the service account named `wfapi` exists in the `argo` namespace and has appropriate permissions via a `rolebinding`.
+
+Programmatically, the token can be retrieved by the following:
 ```bash
 # Get the token
 ARGO_TOKEN="$(uds zarf tools kubectl get secret -n argo wfapi.service-account-token -o=jsonpath='{.data.token}' | base64 --decode)"
