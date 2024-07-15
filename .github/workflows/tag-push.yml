@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/argo-wf-zarf
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push:
@@ -28,7 +28,10 @@ jobs:
 
       - name: Install UDS CLI
         # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
-        run: brew install defenseunicorns/tap/uds@0.11.2
+        run: brew install defenseunicorns/tap/uds@0.12.0
 
-      - name: Build and push the zarf package
-        run:
+      - name: Build the zarf package
+        run: uds run build-package
+
+      - name: Publish the zarf package
+        run: uds zarf package publish zarf-package-*.tar.zst oci://${{env.REGISTRY}}/${{env.IMAGE_NAME}}
