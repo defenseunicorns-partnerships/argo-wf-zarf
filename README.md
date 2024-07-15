@@ -15,8 +15,8 @@ If trying to work with the `ironbank` flavor, you will need the following enviro
 ## Installation
 Most of the installation can be done via the tasks.yaml and `uds run` commands.  Here are some good targets to start with:
 * `ci:up`: A clean installation including a k3d cluster and uds-slim-dev installation
-* `test:package-up`: Deploys a hello world WorkflowTemplate
-* `test:submit-workflow`: Submits a hello world workflow
+* `tests:package-up`: Deploys a hello world WorkflowTemplate
+* `tests:submit-workflow`: Submits a hello world workflow
 * `ci:package-recycle`: Removes the package, rebuilds it, and redeploys it.
 * `ci:down`: removes everything and deletes the k3d cluster
 * `clean`: Cleans the directory of all build/test artifacts
@@ -30,7 +30,20 @@ The `/test/workflows/` directory has a hello-world template and workflow to test
 The Zarf package that deploys the test WorkflowTemplate also deploys a pod called "wrapper" that has some CLI tools installed so that you can shell into it for testing purposes.
 
 ## Using Argo Server with Client Auth
-The ServiceAccount `wfapi` in the `argo` namespace has a token which can be found in the secret `wfapi.service-account-token`.  Programmatically, it can be retrieved by the following command:
+You will need a token to use the Argo Server with Client Auth.  A token can be created for an existing serviceaccount by creating a kubernetes secret with the following pattern:
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: wfapi.service-account-token
+  namespace: argo
+  annotations:
+    kubernetes.io/service-account.name: wfapi
+type: kubernetes.io/service-account-token
+```
+This assumes the service account named `wfapi` exists in the `argo` namespace and has appropriate permissions via a `rolebinding`.
+
+Programmatically, the token can be retrieved by the following:
 ```bash
 # Get the token
 ARGO_TOKEN="$(uds zarf tools kubectl get secret -n argo wfapi.service-account-token -o=jsonpath='{.data.token}' | base64 --decode)"
