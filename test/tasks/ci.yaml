@@ -13,7 +13,13 @@ tasks:
   - name: uds-up
     description: Brings up uds-slim-dev
     actions:
-      - cmd: cd test && uds deploy k3d-core-slim-dev:0.22.2 -c --no-progress
+      - dir: test
+        shell:
+          darwin: bash
+          linux: bash
+        cmd: |
+          set -a; source ../.env; set +a
+          uds deploy k3d-core-slim-dev:${UDS_CORE_VERSION} -c --no-progress
   - name: uds-down
     description: Brings down uds-slim-dev and everything it contains
     actions:

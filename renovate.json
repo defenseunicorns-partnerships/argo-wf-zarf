@@ -16,27 +16,13 @@
   "pre-commit": {
     "enabled": true
   },
+  "ignorePaths": [],
   "regexManagers": [
     {
-      "fileMatch": ["^.env"],
+      "fileMatch": [".*"],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?_VERSION=(?<currentValue>.*)\\s"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
-      "extractVersionTemplate": "^v?(?<version>.*)$"
-    },
-    {
-      "fileMatch": ["^Dockerfile$"],
-      "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s"
-      ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
-      "extractVersionTemplate": "^v?(?<version>.*)$"
-    },
-    {
-      "fileMatch": ["^.tool-versions$"],
-      "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*? (?<currentValue>.*)\\s"
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?_VERSION=(?<currentValue>.*)\\s",
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?(?<currentValue>.*)\\s"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
       "extractVersionTemplate": "^v?(?<version>.*)$"
@@ -44,18 +30,31 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["terraform"],
-      "allowedVersions": "<1.6.0"
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["postgresql"],
+      "registryUrls": ["https://charts.bitnami.com/bitnami"]
     },
     {
-      "matchPackageNames": ["sshuttle"],
-      "groupName": "sshuttle",
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["argo-workflows"],
+      "registryUrls": ["https://argoproj.github.io/argo-helm"]
+    },
+    {
+      "matchPackageNames": ["foo"],
+      "groupName": "unstable",
       "automerge": false
     },
     {
-      "excludePackageNames": ["sshuttle"],
+      "excludePackageNames": ["foo"],
       "groupName": "stable",
       "automerge": false
+    }
+  ],
+  "hostRules": [
+    {
+      "matchHost": "registry1.dso.mil",
+      "username": "process.env.IRON_BANK_ROBOT_USERNAME",
+      "password": "process.env.IRON_BANK_ROBOT_PASSWORD"
     }
   ]
 }

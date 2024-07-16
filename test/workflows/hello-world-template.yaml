@@ -17,6 +17,7 @@ spec:
       envFrom:
         - secretRef:
             name: minio-tokens
+      # renovate: datasource=docker depName=bitnami/postgresql
       image: bitnami/postgresql:15.6.0
       command: ["/bin/bash", "-c"]
       args:
