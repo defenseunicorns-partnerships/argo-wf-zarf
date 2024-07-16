@@ -12,9 +12,11 @@ tasks:
       - task: uds-down
   - name: uds-up
     description: Brings up uds-slim-dev
-    envPath: ../../.env
     actions:
-      - cmd: cd test && uds deploy k3d-core-slim-dev:${UDS_CORE_VERSION} -c --no-progress
+      - dir: test
+        cmd: |
+          set -a; source ../.env; set +a
+          uds deploy k3d-core-slim-dev:${UDS_CORE_VERSION} -c --no-progress
   - name: uds-down
     description: Brings down uds-slim-dev and everything it contains
     actions:
