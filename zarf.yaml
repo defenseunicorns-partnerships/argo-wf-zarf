@@ -217,4 +217,3 @@ components:
       - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.8
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/opensource/argoproj/argocli
       - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.8
-
