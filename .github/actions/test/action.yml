@@ -26,9 +26,6 @@ runs:
         status: pending
         description: "started by @${{ github.event.client_payload.github.actor || github.actor }}"
 
-    - name: Checkout
-      uses: actions/checkout@v4
-
     - name: Install k3d
       shell: bash
       run: |
