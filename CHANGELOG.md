@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.2...0.0.3) (2024-07-18)
+
+
+### Miscellaneous Chores
+
+* **deps:** update stable ([#14](https://github.com/defenseunicorns/argo-wf-zarf/issues/14)) ([08f7420](https://github.com/defenseunicorns/argo-wf-zarf/commit/08f7420e7c8819020271298ec28356c9c332429d))
+* fix renovate config and switch to JSON5 config ([#25](https://github.com/defenseunicorns/argo-wf-zarf/issues/25)) ([ea8fa03](https://github.com/defenseunicorns/argo-wf-zarf/commit/ea8fa03d03c213cbd206ec2b589333a59c0b2791))
+* Improve Renovate ([#21](https://github.com/defenseunicorns/argo-wf-zarf/issues/21)) ([9dd039c](https://github.com/defenseunicorns/argo-wf-zarf/commit/9dd039cfce5377447e1e6f285c769522ff226e87))
+
+
+### Continuous Integration
+
+* remove unnecessary checkout ([#23](https://github.com/defenseunicorns/argo-wf-zarf/issues/23)) ([5711312](https://github.com/defenseunicorns/argo-wf-zarf/commit/5711312fd006f89a21046f249fcc0710ad123e72))
+
 ## [0.0.2](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.1...0.0.2) (2024-07-15)
 
 
