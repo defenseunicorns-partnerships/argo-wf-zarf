@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.4](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.3...0.0.4) (2024-07-23)
+
+
+### Bug Fixes
+
+* create service-account-token for argo-workflow service account ([#31](https://github.com/defenseunicorns/argo-wf-zarf/issues/31)) ([a60712a](https://github.com/defenseunicorns/argo-wf-zarf/commit/a60712a90cd76538962ca1a96077dc24ca161308))
+
+
+### Miscellaneous Chores
+
+* **deps:** update pre-commit hook renovatebot/pre-commit-hooks to v37.433.1 ([#26](https://github.com/defenseunicorns/argo-wf-zarf/issues/26)) ([b7e994f](https://github.com/defenseunicorns/argo-wf-zarf/commit/b7e994f37834d8bf71b6e19486e60952bf7f1676))
+* **deps:** update stable ([#28](https://github.com/defenseunicorns/argo-wf-zarf/issues/28)) ([53403be](https://github.com/defenseunicorns/argo-wf-zarf/commit/53403beb1e137e4f1b4616ac21011513c2d2ce0c))
+* **deps:** update stable ([#29](https://github.com/defenseunicorns/argo-wf-zarf/issues/29)) ([93b2af1](https://github.com/defenseunicorns/argo-wf-zarf/commit/93b2af1b67f97c3e715e71e89f7f82023221ca6f))
+
 ## [0.0.3](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.2...0.0.3) (2024-07-18)
 
 
