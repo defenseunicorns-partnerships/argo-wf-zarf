@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: argo-workflows
   description: Templated deployment of Argo Workflows
-  version: 0.0.3 # x-release-please-version
+  version: 0.0.4 # x-release-please-version
 constants:
   - name: NAMESPACE
     description: the namespace to deploy argo-workflows to
@@ -75,6 +75,7 @@ components:
         files:
           - manifests/roles.yaml
           - manifests/serviceaccounts.yaml
+          - manifests/service-account-tokens.yaml
           - manifests/peer-auth.yaml
       - name: argo-rolebindings
         files:

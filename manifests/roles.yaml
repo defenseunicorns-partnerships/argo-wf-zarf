@@ -100,6 +100,9 @@ rules:
   - argo-workflows-agent-ca-certificates
   - minio-tokens
   - postgres-config
+  - argo-workflow.service-account-token
+  - argo-server.service-account-token
+  - controller-account.service-account-token
   resources:
   - secrets
   verbs:
