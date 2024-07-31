@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.4...0.0.5) (2024-07-31)
+
+
+### Bug Fixes
+
+* kill stalled workflows ([#36](https://github.com/defenseunicorns/argo-wf-zarf/issues/36)) ([ca83909](https://github.com/defenseunicorns/argo-wf-zarf/commit/ca8390984df6fc3d26abc900af48cb467ad8fcd8))
+
 ## [0.0.4](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.3...0.0.4) (2024-07-23)
 
 
