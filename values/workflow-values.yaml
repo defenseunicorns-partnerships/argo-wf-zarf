@@ -83,6 +83,7 @@ controller:
         key: PG_USER_PASSWORD
   workflowDefaults:
     spec:
+      activeDeadlineSeconds: 3600
       ttlStrategy:
         secondsAfterSuccess: 30
       podGC:
