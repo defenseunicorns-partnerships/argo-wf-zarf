@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.6](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.5...0.0.6) (2024-07-31)
+
+
+### Miscellaneous Chores
+
+* change server role ([3d406c6](https://github.com/defenseunicorns/argo-wf-zarf/commit/3d406c6c055483a61f08c10f2c6e59add4e23ca1))
+* pre-commit-checks ([3d406c6](https://github.com/defenseunicorns/argo-wf-zarf/commit/3d406c6c055483a61f08c10f2c6e59add4e23ca1))
+
 ## [0.0.5](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.4...0.0.5) (2024-07-31)
 
 
