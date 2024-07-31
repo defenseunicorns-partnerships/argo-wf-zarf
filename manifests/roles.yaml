@@ -15,6 +15,13 @@ rules:
 - apiGroups:
   - ""
   resources:
+  - pods/log
+  verbs:
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resources:
   - configmaps
   verbs:
   - get
