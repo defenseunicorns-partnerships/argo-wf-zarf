@@ -35,6 +35,3 @@ jobs:
 
       - name: Publish the zarf package
         run: uds zarf package publish zarf-package-*.tar.zst oci://${{env.REGISTRY}}/${{env.IMAGE_NAME}}
-
-      - name: Publish the skeleton package
-        run: uds zarf package publish ./ oci://${{env.REGISTRY}}/${{env.IMAGE_NAME}}/skeleton
