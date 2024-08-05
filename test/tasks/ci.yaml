@@ -36,7 +36,7 @@ tasks:
     description: Uninstalls the zarf package
     actions:
       - cmd: uds zarf package remove zarf-package-argo-workflows-*.tar.zst --confirm --no-progress
-      - cmd: uds zarf tools kubectl delete namespace argo --no-progress
+      - cmd: uds zarf tools kubectl delete namespace argo
   - name: package-recycle
     description: Bring down the package, rebuild, and redeploy
     actions:
