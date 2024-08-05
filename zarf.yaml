@@ -173,7 +173,7 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=helm depName=argo-workflows
-        version: 0.41.11
+        version: 0.41.14
         url: https://argoproj.github.io/argo-helm
         repoName: argo-workflows
         valuesFiles:
