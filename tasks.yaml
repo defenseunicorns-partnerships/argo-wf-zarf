@@ -6,14 +6,13 @@ tasks:
   - name: clean
     description: Clean the repo of all build/test artifacts
     actions:
-      - cmd: rm -f zarf-config.yaml
+      - cmd: rm -f uds-config.yaml
       - cmd: rm -f *.tar.zst
-      - cmd: rm -rf test/zarf-sbom
-      - cmd: rm -f test/workflows/*.tar.zst
   - name: build-package
     description: Builds the production-level zarf package to deploy vanilla argo workflows
     actions:
       - cmd: uds zarf package create --confirm --flavor vanilla
+      - cmd: cp test/uds-config-dev.yaml uds-config.yaml
   - name: deploy-package
     description: Deploys the zarf package
     actions:
