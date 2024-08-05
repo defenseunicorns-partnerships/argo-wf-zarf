@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.7](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.6...0.0.7) (2024-08-05)
+
+
+### Miscellaneous Chores
+
+* **deps:** argo version ([#40](https://github.com/defenseunicorns/argo-wf-zarf/issues/40)) ([3ea23b8](https://github.com/defenseunicorns/argo-wf-zarf/commit/3ea23b82a149e6e9b5dfe802c52f051fa5e4d728))
+* **deps:** update dependency defenseunicorns/build-harness to v2.0.32 ([#34](https://github.com/defenseunicorns/argo-wf-zarf/issues/34)) ([2fcc81a](https://github.com/defenseunicorns/argo-wf-zarf/commit/2fcc81a58f76de134b40417ce9b2c1087a1fe43f))
+* **deps:** update pre-commit hook renovatebot/pre-commit-hooks to v38 ([#35](https://github.com/defenseunicorns/argo-wf-zarf/issues/35)) ([d4b1a35](https://github.com/defenseunicorns/argo-wf-zarf/commit/d4b1a351741f9282e556872177691a0b48839203))
+
 ## [0.0.6](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.5...0.0.6) (2024-07-31)
 
 
