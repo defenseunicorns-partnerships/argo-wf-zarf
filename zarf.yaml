@@ -173,18 +173,18 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=helm depName=argo-workflows
-        version: 0.41.11
+        version: 0.41.14
         url: https://argoproj.github.io/argo-helm
         repoName: argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
     images:
       # renovate: datasource=docker depName=quay.io/argoproj/workflow-controller
-      - quay.io/argoproj/workflow-controller:v3.5.8
+      - quay.io/argoproj/workflow-controller:v3.5.10
       # renovate: datasource=docker depName=quay.io/argoproj/argoexec
-      - quay.io/argoproj/argoexec:v3.5.8
+      - quay.io/argoproj/argoexec:v3.5.10
       # renovate: datasource=docker depName=quay.io/argoproj/argocli
-      - quay.io/argoproj/argocli:v3.5.8
+      - quay.io/argoproj/argocli:v3.5.10
   - name: argo-workflows
     required: true
     description: "Deploy Argo Workflow"
@@ -206,15 +206,15 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=helm depName=argo-workflows
-        version: 0.41.11
+        version: 0.41.14
         url: https://argoproj.github.io/argo-helm
         repoName: argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
     images:
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.5.8
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.5.10
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.8
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.10
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/opensource/argoproj/argocli
-      - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.8
+      - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.10
