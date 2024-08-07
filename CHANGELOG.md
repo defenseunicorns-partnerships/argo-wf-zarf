@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.9](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.8...0.0.9) (2024-08-07)
+
+
+### Bug Fixes
+
+* stop pushing skeleton package ([#50](https://github.com/defenseunicorns/argo-wf-zarf/issues/50)) ([bdd8762](https://github.com/defenseunicorns/argo-wf-zarf/commit/bdd87629fa188128a7a4926df931fea4dc5a8f56))
+
 ## [0.0.8](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.7...0.0.8) (2024-08-07)
 
 
