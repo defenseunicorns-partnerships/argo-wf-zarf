@@ -107,9 +107,9 @@ components:
     charts:
       - name: postgresql
         namespace: argo
-        # renovate: datasource=helm depName=postgresql
+        # renovate: datasource=docker depName=registry-1.docker.io/bitnamicharts/postgresql
         version: 15.2.5
-        url: https://charts.bitnami.com/bitnami
+        url: oci://registry-1.docker.io/bitnamicharts/postgresql
         repoName: postgresql
         valuesFiles:
           - values/postgres-values.yaml
@@ -141,9 +141,9 @@ components:
     charts:
       - name: postgresql
         namespace: argo
-        # renovate: datasource=helm depName=postgresql
+        # renovate: datasource=docker depName=registry-1.docker.io/bitnamicharts/postgresql
         version: 15.2.5
-        url: https://charts.bitnami.com/bitnami
+        url: oci://registry-1.docker.io/bitnamicharts/postgresql
         repoName: postgresql
         valuesFiles:
           - values/postgres-values.yaml
@@ -172,10 +172,9 @@ components:
     charts:
       - name: argo-workflows
         namespace: argo
-        # renovate: datasource=helm depName=argo-workflows
+        # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
         version: 0.41.14
-        url: https://argoproj.github.io/argo-helm
-        repoName: argo-workflows
+        url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
     images:
@@ -205,10 +204,9 @@ components:
     charts:
       - name: argo-workflows
         namespace: argo
-        # renovate: datasource=helm depName=argo-workflows
+        # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
         version: 0.41.14
-        url: https://argoproj.github.io/argo-helm
-        repoName: argo-workflows
+        url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
     images:
