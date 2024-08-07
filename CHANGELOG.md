@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.0.8](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.7...0.0.8) (2024-08-07)
+
+
+### Bug Fixes
+
+* missed a postgres renovate reference ([#49](https://github.com/defenseunicorns/argo-wf-zarf/issues/49)) ([ecda85f](https://github.com/defenseunicorns/argo-wf-zarf/commit/ecda85fda6bb3e71acb1de80177c6e2ea207138a))
+
+
+### Miscellaneous Chores
+
+* **deps:** update stable ([#41](https://github.com/defenseunicorns/argo-wf-zarf/issues/41)) ([9a758ef](https://github.com/defenseunicorns/argo-wf-zarf/commit/9a758efd71d9e354294b6398a86a7efaa5c74395))
+
+
+### Continuous Integration
+
+* fix renovate config ([#44](https://github.com/defenseunicorns/argo-wf-zarf/issues/44)) ([a768ece](https://github.com/defenseunicorns/argo-wf-zarf/commit/a768ece07700d5fb841c1a897977937b38481f00))
+
 ## [0.0.7](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.6...0.0.7) (2024-08-05)
 
 
