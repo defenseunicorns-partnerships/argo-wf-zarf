@@ -90,12 +90,6 @@ components:
       - name: minio-tokens
         files:
           - manifests/minio-secrets.yaml
-    actions:
-      onDeploy:
-        before:
-          - cmd: echo "9000"
-            setVariables:
-              - name: S3_PORT
   - name: postgresql
     required: true
     description: "Deploy Postgresql"
