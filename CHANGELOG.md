@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.0](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.9...0.1.0) (2024-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* uds package ([#52](https://github.com/defenseunicorns/argo-wf-zarf/issues/52))
+
+### Features
+
+* uds package ([#52](https://github.com/defenseunicorns/argo-wf-zarf/issues/52)) ([171bab8](https://github.com/defenseunicorns/argo-wf-zarf/commit/171bab832408176ac1e2b9f285014a122989c5dc))
+
 ## [0.0.9](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.8...0.0.9) (2024-08-07)
 
 
