@@ -15,14 +15,14 @@ If trying to work with the `ironbank` flavor, you will need the following enviro
 ## Installation
 Most of the installation can be done via the tasks.yaml and `uds run` commands.  Here are some good targets to start with:
 * `ci:up`: A clean installation including a k3d cluster and uds-slim-dev installation
-* `tests:package-up`: Deploys a hello world WorkflowTemplate
+* `tests:template-up`: Deploys a hello world WorkflowTemplate
 * `tests:submit-workflow`: Submits a hello world workflow
 * `ci:package-recycle`: Removes the package, rebuilds it, and redeploys it.
 * `ci:down`: removes everything and deletes the k3d cluster
 * `clean`: Cleans the directory of all build/test artifacts
 * `test`: Runs the full end-to-end test suite
 
-Run `uds run --list-all` to see all available tasks.
+Run `uds run --list-all` to see all available tasks.  Of note, if building your own tasks, you need to include the `--components=dev-setup` in order to use minio vice AWS S3
 
 ## Workflow specifics
 The `/test/workflows/` directory has a hello-world template and workflow to test the deployment.  If a workflow is failing you can elect to keep the pod alive to look at logs by adding the field `spec.podGC.strategy` and setting it to `OnWorkflowSuccess` (the deployment defaults it to `OnPodCompletion`).
