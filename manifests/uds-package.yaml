@@ -22,12 +22,5 @@ spec:
         remoteGenerated: KubeAPI
       #S3
       - direction: Egress
-        selector:
-          app.kubernetes.io/name: argo-workflows-workflow-controller
         ports:
           - ###ZARF_VAR_S3_PORT###
-      - direction: Egress
-        selector:
-          app.kubernetes.io/name: argo-workflows-server
-        ports:
-          - ###ZARF_VAR_S3_PORT###      
