@@ -1,0 +1,25 @@
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: argo-package
+  namespace: "###ZARF_CONST_NAMESPACE###"
+spec:
+    allow:
+      - direction: Ingress
+        remoteGenerated: IntraNamespace
+      - direction: Egress
+        remoteGenerated: IntraNamespace
+      #Kube API
+      - direction: Egress
+        remoteGenerated: KubeAPI
+      - direction: Egress
+        selector:
+          app.kubernetes.io/name: argo-workflows-workflow-controller
+        ports:
+          - ###ZARF_VAR_S3_PORT###
+      - direction: Egress
+        selector:
+          app.kubernetes.io/name: argo-workflows-server
+        ports:
+          - ###ZARF_VAR_S3_PORT###
+      
