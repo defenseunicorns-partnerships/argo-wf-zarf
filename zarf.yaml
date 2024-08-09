@@ -46,9 +46,6 @@ variables:
   - name: S3_PORT
     description: Port to connect to S3 API on
     default: 443
-  - name: EGRESS_RESTRICTION
-    description: fills the remoteGenerated egress restriction for argo-workflows
-    default: KubeAPI
   - name: DEFAULT_ARTIFACT_REPO
     prompt: true
     sensitive: false
@@ -99,9 +96,6 @@ components:
           - cmd: echo "9000"
             setVariables:
               - name: S3_PORT
-          - cmd: echo "Anywhere"
-            setVariables:
-              - name: EGRESS_RESTRICTION
   - name: postgresql
     required: true
     description: "Deploy Postgresql"
