@@ -43,6 +43,9 @@ variables:
     description: The Secret key for the S3 service
     prompt: true
     sensitive: true
+  - name: S3_PORT
+    description: Port to connect to S3 API on
+    default: 443
   - name: DEFAULT_ARTIFACT_REPO
     prompt: true
     sensitive: false
@@ -77,15 +80,22 @@ components:
           - manifests/serviceaccounts.yaml
           - manifests/service-account-tokens.yaml
           - manifests/peer-auth.yaml
+          - manifests/uds-package.yaml
       - name: argo-rolebindings
         files:
           - manifests/rolebindings.yaml
   - name: dev-setup
-    required: true
+    required: false
     manifests:
       - name: minio-tokens
         files:
           - manifests/minio-secrets.yaml
+    actions:
+      onDeploy:
+        before:
+          - cmd: echo "9000"
+            setVariables:
+              - name: S3_PORT
   - name: postgresql
     required: true
     description: "Deploy Postgresql"
