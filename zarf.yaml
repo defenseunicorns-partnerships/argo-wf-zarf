@@ -26,6 +26,9 @@ variables:
     description: Password for the user account specified in PG_USER. If DEPLOY_POSTGRESQL is "true", this will also be the password for the "postgres" admin user.
     prompt: true
     sensitive: true
+  - name: PG_STORAGE_CLASS
+    description: Storage class for postgresql
+    default: null
   - name: S3_ENDPOINT
     description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
     prompt: true
