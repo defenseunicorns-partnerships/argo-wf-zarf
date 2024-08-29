@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.1.1...0.1.2) (2024-08-29)
+
+
+### Features
+
+* update svcaccts ([#57](https://github.com/defenseunicorns/argo-wf-zarf/issues/57)) ([5d25876](https://github.com/defenseunicorns/argo-wf-zarf/commit/5d25876536bc47ae77bd9d8dcd00a757b9896f50))
+
 ## [0.1.1](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.1.0...0.1.1) (2024-08-29)
 
 
