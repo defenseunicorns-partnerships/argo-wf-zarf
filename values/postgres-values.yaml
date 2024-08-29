@@ -14,7 +14,7 @@ primary:
     type: ClusterIP
   persistence:
     enabled: true
-    storageClass: ###ZARF_VAR_POSTGRES_STORAGE_CLASS###
+    storageClass: ###ZARF_VAR_PG_STORAGE_CLASS###
   podSecurityContext:
     enabled: true
     fsGroupChangePolicy: Always
