@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.1](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.1.0...0.1.1) (2024-08-29)
+
+
+### Features
+
+* add variable for storage class (default null) ([#56](https://github.com/defenseunicorns/argo-wf-zarf/issues/56)) ([36957be](https://github.com/defenseunicorns/argo-wf-zarf/commit/36957be995d9d0bbf58b516858e1af52f7ab7a0d))
+
+
+### Miscellaneous Chores
+
+* **deps:** update tj-actions/changed-files action to v45 ([#54](https://github.com/defenseunicorns/argo-wf-zarf/issues/54)) ([03b0528](https://github.com/defenseunicorns/argo-wf-zarf/commit/03b05280fdbdb5cfcdf1071d7ef449cda2afca3c))
+
 ## [0.1.0](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.0.9...0.1.0) (2024-08-09)
 
 
