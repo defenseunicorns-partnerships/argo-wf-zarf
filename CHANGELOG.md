@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.1.2...0.1.3) (2024-08-30)
+
+
+### Features
+
+* add ttl zarf variable for archived workflows ([#61](https://github.com/defenseunicorns/argo-wf-zarf/issues/61)) ([3349377](https://github.com/defenseunicorns/argo-wf-zarf/commit/3349377196f42b74898b7babffa561c484c83442))
+* update service accounts ([#59](https://github.com/defenseunicorns/argo-wf-zarf/issues/59)) ([49591a3](https://github.com/defenseunicorns/argo-wf-zarf/commit/49591a3996e17c9d24dd634931e12be8f2343c27))
+
 ## [0.1.2](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.1.1...0.1.2) (2024-08-29)
 
 
