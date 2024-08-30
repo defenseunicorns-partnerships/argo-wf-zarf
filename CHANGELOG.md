@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.1.3...0.1.4) (2024-08-30)
+
+
+### Bug Fixes
+
+* add audience to service accounts ([#62](https://github.com/defenseunicorns/argo-wf-zarf/issues/62)) ([fecc6ef](https://github.com/defenseunicorns/argo-wf-zarf/commit/fecc6efe763992461ed8f9401f0b2b89d5f3c1e8))
+
 ## [0.1.3](https://github.com/defenseunicorns/argo-wf-zarf/compare/0.1.2...0.1.3) (2024-08-30)
 
 
