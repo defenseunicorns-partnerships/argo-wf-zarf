@@ -29,6 +29,9 @@ variables:
   - name: PG_STORAGE_CLASS
     description: Storage class for postgresql
     default: null
+  - name: ARCHIVE_TTL
+    description: Time to keep archived workflows in Postgres
+    default: 10d
   - name: S3_ENDPOINT
     description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
     prompt: true
