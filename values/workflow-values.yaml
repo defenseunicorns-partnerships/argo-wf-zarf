@@ -70,6 +70,7 @@ controller:
   persistence:
     nodeStatusOffLoad: true
     archive: true
+    archiveTTL: "###ZARF_VAR_ARCHIVE_TTL###"
     postgresql:
       host: "###ZARF_VAR_PG_HOST###"
       port: !!int "###ZARF_VAR_PG_PORT###"
