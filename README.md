@@ -27,7 +27,7 @@ Run `uds run --list-all` to see all available tasks.  Of note, if building your 
 ## Workflow specifics
 The `/test/workflows/` directory has a hello-world template and workflow to test the deployment.  If a workflow is failing you can elect to keep the pod alive to look at logs by adding the field `spec.podGC.strategy` and setting it to `OnWorkflowSuccess` (the deployment defaults it to `OnPodCompletion`).
 
-The Zarf package that deploys the test WorkflowTemplate also deploys a pod called "wrapper" that has some CLI tools installed so that you can shell into it for testing purposes.
+The Zarf package that deploys the test WorkflowTemplate also deploys a pod called "wrapper" that has some CLI tools installed. You can shell into it for testing purposes.
 
 ## Using Argo Server with Client Auth
 You will need a token to use the Argo Server with Client Auth.  A token can be created for an existing serviceaccount by creating a kubernetes secret with the following pattern:
