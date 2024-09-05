@@ -28,7 +28,6 @@ variables:
     sensitive: true
   - name: PG_STORAGE_CLASS
     description: Storage class for postgresql
-    default: null
   - name: ARCHIVE_TTL
     description: Time to keep archived workflows in Postgres
     default: 10d
@@ -51,7 +50,6 @@ variables:
     sensitive: true
   - name: S3_PORT
     description: Port to connect to S3 API on
-    default: 443
   - name: DEFAULT_ARTIFACT_REPO
     prompt: true
     sensitive: false
@@ -176,8 +174,7 @@ components:
     charts:
       - name: argo-workflows
         namespace: argo
-        # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
-0.42.1
+        version: 0.42.1 # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
@@ -208,8 +205,7 @@ components:
     charts:
       - name: argo-workflows
         namespace: argo
-        # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
-0.42.1
+        version: 0.42.1 # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
