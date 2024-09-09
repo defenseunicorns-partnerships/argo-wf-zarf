@@ -26,7 +26,7 @@ tasks:
       - dir: test
         shell:
           darwin: bash
-          linuix: bash
+          linux: bash
         cmd: |
           set -a; source ../.env; set +a
           uds remove k3d-core-slim-dev:${UDS_CORE_VERSION} -c
