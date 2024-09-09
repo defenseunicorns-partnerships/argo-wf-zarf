@@ -44,7 +44,7 @@
         "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?(?<currentValue>.*)\\s"
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
-      extractVersionTemplate: ".*^v?(?<version>.*)$"
+      extractVersionTemplate: "^v?(?<version>.*)$"
     }
   ],
   packageRules: [
