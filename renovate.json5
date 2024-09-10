@@ -41,7 +41,8 @@
       customType: "regex",
       fileMatch: [".*\.[yaml|yml]"],
       matchStrings: [
-        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?(?<currentValue>.*)\\s"
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?version: (?<currentValue>.*)\\s",
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?:v(?<currentValue>.*)\\s"
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
       extractVersionTemplate: "^v?(?<version>.*)$"

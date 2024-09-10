@@ -23,6 +23,13 @@ tasks:
   - name: uds-down
     description: Brings down uds-slim-dev and everything it contains
     actions:
+      - dir: test
+        shell:
+          darwin: bash
+          linux: bash
+        cmd: |
+          set -a; source ../.env; set +a
+          uds remove k3d-core-slim-dev:${UDS_CORE_VERSION} -c
       - cmd: k3d cluster delete uds
   - name: package-up
     description: Builds and deploys the zarf package using the test zarf-config.yaml
