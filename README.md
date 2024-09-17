@@ -22,12 +22,17 @@ Most of the installation can be done via the tasks.yaml and `uds run` commands. 
 * `clean`: Cleans the directory of all build/test artifacts
 * `test`: Runs the full end-to-end test suite
 
-Run `uds run --list-all` to see all available tasks.  Of note, if building your own tasks, you need to include the `--components=dev-setup` in order to use minio vice AWS S3
+Run `uds run --list-all` to see all available tasks.  Of note, if building your own zarf package, you need to include the `--components=dev-setup` flag in the `zarf package create` command in order to use minio vice AWS S3 storage.
 
 ## Workflow specifics
 The `/test/workflows/` directory has a hello-world template and workflow to test the deployment.  If a workflow is failing you can elect to keep the pod alive to look at logs by adding the field `spec.podGC.strategy` and setting it to `OnWorkflowSuccess` (the deployment defaults it to `OnPodCompletion`).
 
-The Zarf package that deploys the test WorkflowTemplate also deploys a pod called "wrapper" that has some CLI tools installed. You can shell into it for testing purposes.
+This deployment sets the `controller.workflowRestrictions.templateReferencing` to `Secure`.  This means any `Workflow` or `CronWorkflow` resource MUST reference a `WorkflowTemplate` deployed to the namespace in order for the controller to run the workflow.
+
+## S3 Key gotcahs
+If using AWS S3 as an artifact repository, do not use a leading `/` to define S3 keys.
+
+If using Minio S3 as an artifact repository, use a leading `/` only for `input` artifacts.  Do not use a leading `/` for `output` artifacts.
 
 ## Using Argo Server with Client Auth
 You will need a token to use the Argo Server with Client Auth.  A token can be created for an existing serviceaccount by creating a kubernetes secret with the following pattern:
