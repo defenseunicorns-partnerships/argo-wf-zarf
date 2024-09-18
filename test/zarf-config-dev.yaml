@@ -9,7 +9,7 @@ package:
       PG_PORT: 5432
       PG_PASSWORD: pgadmin
       ARCHIVE_TTL: 30m
-      PARALLELISM: 4
+      PARALLELISM: 5
       RATE_BURST: 30
       RATE_LIMIT: 20
       WF_TTL_SECONDS_AFTER_SUCCESS: 30
