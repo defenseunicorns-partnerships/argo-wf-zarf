@@ -31,6 +31,16 @@ variables:
   - name: ARCHIVE_TTL
     description: Time to keep archived workflows in Postgres
     default: 10d
+  - name: PARELLELISM
+    description: Number of workflows that can run simultaneously
+  - name: RATE_BURST
+    description: Burst QPS before the RATE_LIMIT is enforced
+  - name: RATE_LIMIT
+    description: QPS enforcement
+  - name: WF_TTL_SECONDS_AFTER_SUCCESS
+    description: Number of seconds before archiving a workflow after success
+  - name: WF_TTL_SECONDS_AFTER_FAILURE
+    description: Number of seconds before archiving a workflow after failure
   - name: S3_ENDPOINT
     description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
     prompt: true
