@@ -33,14 +33,19 @@ variables:
     default: 10d
   - name: PARELLELISM
     description: Number of workflows that can run simultaneously
+    prompt: true
   - name: RATE_BURST
     description: Burst QPS before the RATE_LIMIT is enforced
+    prompt: true
   - name: RATE_LIMIT
     description: QPS enforcement
+    prompt: true
   - name: WF_TTL_SECONDS_AFTER_SUCCESS
     description: Number of seconds before archiving a workflow after success
+    prompt: true
   - name: WF_TTL_SECONDS_AFTER_FAILURE
     description: Number of seconds before archiving a workflow after failure
+    prompt: true
   - name: S3_ENDPOINT
     description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
     prompt: true
