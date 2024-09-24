@@ -9,11 +9,6 @@ package:
       PG_PORT: 5432
       PG_PASSWORD: pgadmin
       ARCHIVE_TTL: 30m
-      PARALLELISM: 5
-      RATE_BURST: 30
-      RATE_LIMIT: 20
-      WF_TTL_SECONDS_AFTER_SUCCESS: 2
-      WF_TTL_SECONDS_AFTER_FAILURE: 86400
       S3_ENDPOINT: minio.uds-dev-stack.svc.cluster.local:9000
       S3_PORT: 9000
       S3_ACCESS_KEY: test-user

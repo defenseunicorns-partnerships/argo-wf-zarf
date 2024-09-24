@@ -14,10 +14,10 @@ controller:
   image:
     registry: "###ZARF_VAR_ARGO_REGISTRY###"
     repository: "###ZARF_VAR_ARGO_REPO###/workflow-controller"
-  parallelism: ###ZARF_VAR_PARALLELISM###
+  parallelism: "###ZARF_VAR_PARALLELISM###"
   resourceRateLimit:
-    limit: ###ZARF_VAR_RATE_LIMIT###
-    burst: ###ZARF_VAR_RATE_BURST###
+    limit: !!int "###ZARF_VAR_RATE_LIMIT###"
+    burst: !!int "###ZARF_VAR_RATE_BURST###"
   rbac:
     create: false
   configMap:
@@ -80,8 +80,8 @@ controller:
     spec:
       activeDeadlineSeconds: 3600
       ttlStrategy:
-        secondsAfterSuccess: ###ZARF_VAR_WF_TTL_SECONDS_AFTER_SUCCESS###
-        secondsAfterFailure: ###ZARF_VAR_WF_TTL_SECONDS_AFTER_FAILURE###
+        secondsAfterSuccess: !!int "###ZARF_VAR_WF_TTL_SECONDS_AFTER_SUCCESS###"
+        secondsAfterFailure: !!int "###ZARF_VAR_WF_TTL_SECONDS_AFTER_FAILURE###"
       podGC:
         strategy: OnPodCompletion
       archiveLogs: true
