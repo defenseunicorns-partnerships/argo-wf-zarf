@@ -195,17 +195,17 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
-        version: 0.42.1
+        version: 0.42.4
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
     images:
       # renovate: datasource=docker depName=quay.io/argoproj/workflow-controller
-      - quay.io/argoproj/workflow-controller:v3.5.10
+      - quay.io/argoproj/workflow-controller:v3.5.11
       # renovate: datasource=docker depName=quay.io/argoproj/argoexec
-      - quay.io/argoproj/argoexec:v3.5.10
+      - quay.io/argoproj/argoexec:v3.5.11
       # renovate: datasource=docker depName=quay.io/argoproj/argocli
-      - quay.io/argoproj/argocli:v3.5.10
+      - quay.io/argoproj/argocli:v3.5.11
   - name: argo-workflows
     required: true
     description: "Deploy Argo Workflow"
@@ -227,7 +227,7 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
-        version: 0.42.1
+        version: 0.42.4
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
