@@ -31,6 +31,26 @@ variables:
   - name: ARCHIVE_TTL
     description: Time to keep archived workflows in Postgres
     default: 10d
+  - name: PARELLELISM
+    description: Number of workflows that can run simultaneously
+    prompt: true
+    default: "5"
+  - name: RATE_BURST
+    description: Burst QPS before the RATE_LIMIT is enforced
+    prompt: true
+    default: "30"
+  - name: RATE_LIMIT
+    description: QPS enforcement
+    prompt: true
+    default: "20"
+  - name: WF_TTL_SECONDS_AFTER_SUCCESS
+    description: Number of seconds before archiving a workflow after success
+    default: "2"
+    prompt: true
+  - name: WF_TTL_SECONDS_AFTER_FAILURE
+    description: Number of seconds before archiving a workflow after failure
+    prompt: true
+    default: "3600"
   - name: S3_ENDPOINT
     description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
     prompt: true
@@ -174,7 +194,7 @@ components:
     charts:
       - name: argo-workflows
         namespace: argo
-        # renovate: datasource=helm depName=ghcr.io/argoproj/argo-helm/argo-workflows
+        # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
         version: 0.42.1
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
@@ -206,7 +226,7 @@ components:
     charts:
       - name: argo-workflows
         namespace: argo
-        # renovate: datasource=helm depName=ghcr.io/argoproj/argo-helm/argo-workflows
+        # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
         version: 0.42.1
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:

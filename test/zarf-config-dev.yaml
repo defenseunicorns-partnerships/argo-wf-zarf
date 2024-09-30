@@ -8,6 +8,7 @@ package:
       PG_HOST: postgresql.argo.svc.cluster.local
       PG_PORT: 5432
       PG_PASSWORD: pgadmin
+      ARCHIVE_TTL: 30m
       S3_ENDPOINT: minio.uds-dev-stack.svc.cluster.local:9000
       S3_PORT: 9000
       S3_ACCESS_KEY: test-user

@@ -63,30 +63,35 @@ curl http://localhost:2746/api/v1/workflows/argo -H "Authorization: Bearer $ARGO
 
 ## Zarf variables
 
-| variable name         | required | default                   | description                                                                                                                                       |
-| ----------------------| -------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ARCHIVE_TTL           | no       | "10d"                     | Time to keep archived workflows in postgres before garbage collection.                                                                            |
-| ARGO_REGISTRY         | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
-| ARGO REPO             | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
-| ARGO_SERVER_REPO      | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
-| DEFAULT_ARTIFACT_REPO | yes      | minio-artifact-repository | choice between minio-artifact-repository for a dev setup with minio, or aws-artifact-repository for an AWS S3 setup with IRSA                     |
-| DEPLOY_POSTGRESQL     | no       | None                      | If not set to False, deploys the postgresql chart to the argo namespace                                                                           |
-| IRSA_ROLE_ARN         | no       | None                      | ARN of the role to assume if using IRSA                                                                                                           |
-| PG_DB                 | no       | None                      | Name of the postgres database to archive workflows to                                                                                             |
-| PG_HOST               | no       | None                      | URL to create connection string to postgres database for workflow archiving                                                                       |
-| PG_PASSWORD           | no       | None                      | Admin password for postgres user                                                                                                                  |
-| PG_PORT               | no       | None                      | Port to connect to postgres on (typically 5432)                                                                                                   |
-| PG_USER               | no       | None                      | User to associate the archive database with                                                                                                       |
-| PG_USER_PASSWORD      | no       | None                      | Password for the user associated with the archive database                                                                                        |
-| PG_STORAGE_CLASS      | no       | null                      | Storage class for the PVC (used in AWS to ensure gp3 PV)                                                                                          |
-| PSQL_REGISTRY         | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
-| PSQL_REPO             | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
-| PSQL_TAG              | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
-| S3_ACCESS_KEY         | no       | None                      | Access key for access / secret pattern for auth to S3                                                                                             |
-| S3_BUCKET_NAME        | yes      | None                      | Name of the S3 bucket to save artifacts to                                                                                                        |
-| S3_ENDPOINT           | yes      | None                      | Endpoint to connect to s3 "minio.test.dev" / "s3.amazonaws.com" etc.                                                                              |
-| S3_PORT               | yes      | None                      | Port to connect to S3 on (used to build network policies).  443 for AWS S3, usually 9000 for minio                                                |
-| S3_REGION             | no       | None                      | Used with AWS S3 to specify the region the S3 bucket is in                                                                                        |
-| S3_SECRET_KEY         | no       | None                      | Secret key for access / secret pattern for auth to S3                                                                                             |
+| variable name                | required | default                   | description                                                                                                                                       |
+| -----------------------------| -------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ARCHIVE_TTL                  | no       | "10d"                     | Time to keep archived workflows in postgres before garbage collection.                                                                            |
+| ARGO_REGISTRY                | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
+| ARGO REPO                    | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
+| ARGO_SERVER_REPO             | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
+| DEFAULT_ARTIFACT_REPO        | yes      | minio-artifact-repository | choice between minio-artifact-repository for a dev setup with minio, or aws-artifact-repository for an AWS S3 setup with IRSA                     |
+| DEPLOY_POSTGRESQL            | no       | None                      | If not set to False, deploys the postgresql chart to the argo namespace                                                                           |
+| IRSA_ROLE_ARN                | no       | None                      | ARN of the role to assume if using IRSA                                                                                                           |
+| PARALLELISM                  | yes      | 5                         | Number of workflows that can run in parallel                                                                                                      |
+| PG_DB                        | no       | None                      | Name of the postgres database to archive workflows to                                                                                             |
+| PG_HOST                      | no       | None                      | URL to create connection string to postgres database for workflow archiving                                                                       |
+| PG_PASSWORD                  | no       | None                      | Admin password for postgres user                                                                                                                  |
+| PG_PORT                      | no       | None                      | Port to connect to postgres on (typically 5432)                                                                                                   |
+| PG_USER                      | no       | None                      | User to associate the archive database with                                                                                                       |
+| PG_USER_PASSWORD             | no       | None                      | Password for the user associated with the archive database                                                                                        |
+| PG_STORAGE_CLASS             | no       | null                      | Storage class for the PVC (used in AWS to ensure gp3 PV)                                                                                          |
+| PSQL_REGISTRY                | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
+| PSQL_REPO                    | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
+| PSQL_TAG                     | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
+| RATE_BURST                   | yes      | 30                        | Burst QPS before the RATE_LIMIT is enforced                                                                                                       |
+| RATE_LIMIT                   | yes      | 20                        | Limit Queries per Seconds (QPS) enforced at the controller                                                                                        |
+| S3_ACCESS_KEY                | no       | None                      | Access key for access / secret pattern for auth to S3                                                                                             |
+| S3_BUCKET_NAME               | yes      | None                      | Name of the S3 bucket to save artifacts to                                                                                                        |
+| S3_ENDPOINT                  | yes      | None                      | Endpoint to connect to s3 "minio.test.dev" / "s3.amazonaws.com" etc.                                                                              |
+| S3_PORT                      | yes      | None                      | Port to connect to S3 on (used to build network policies).  443 for AWS S3, usually 9000 for minio                                                |
+| S3_REGION                    | no       | None                      | Used with AWS S3 to specify the region the S3 bucket is in                                                                                        |
+| S3_SECRET_KEY                | no       | None                      | Secret key for access / secret pattern for auth to S3                                                                                             |
+| WF_TTL_SECONDS_AFTER_SUCCESS | yes      | 2                         | Seconds to keep a Workflow CR in the cluster before archiving after success                                                                       |
+| WF_TTL_SECONDS_AFTER_FAILURE | yes      | 3600                      | Seconds to keep a Workflow CR in the cluster before archiving after failure                                                                       |
 
 ---
