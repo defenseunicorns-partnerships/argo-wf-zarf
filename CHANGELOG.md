@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.1.6](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.5...0.1.6) (2024-09-30)
+
+
+### Features
+
+* Add more zarf variables ([#79](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/79)) ([df4cd9b](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/df4cd9b4efa3f7c342caccdd6d297e834a794253))
+
+
+### Bug Fixes
+
+* remove narwal runner ([#67](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/67)) ([657fe92](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/657fe92cdb3c14530800f9b9f8774064e8420868))
+* renovate rebase ([#72](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/72)) ([f66f930](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/f66f930c8e19aa2b3dff46d1d6f161e1a83d82a9))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency defenseunicorns/uds-core to v0.27.1 ([#82](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/82)) ([f0d7b04](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/f0d7b04c5bd79f1b67eef3530be2e8a4bc745aae))
+* **deps:** update pre-commit hook renovatebot/pre-commit-hooks to v38.86.0 ([#77](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/77)) ([d41c670](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/d41c6708f1ec55ccaf922d10c663906e4172718d))
+* **deps:** update pre-commit hook renovatebot/pre-commit-hooks to v38.88.0 ([#78](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/78)) ([63d1d0f](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/63d1d0ff6e32ec84fd078ff5cc6824fedbee0df4))
+* **deps:** update stable ([#73](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/73)) ([9bd4914](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/9bd4914dc133603b019411d8dcf594721020096b))
+* **deps:** update stable ([#76](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/76)) ([d905e95](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/d905e9540dd2faa4b3db19090983057e682917d6))
+* **docs:** Update readme ([#75](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/75)) ([260a62c](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/260a62caa747d835bc7d9f99c5726f2e76a255d0))
+* **docs:** Update README with zarf variables ([#69](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/69)) ([8df4c6e](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/8df4c6eb88b0de609e524dd878d1a16ad561ecb2))
+
 ## [0.1.5](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.4...0.1.5) (2024-09-04)
 
 
