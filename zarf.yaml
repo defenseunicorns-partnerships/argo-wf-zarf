@@ -195,7 +195,7 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
-        version: 0.42.4
+        version: 0.42.5
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
@@ -227,7 +227,7 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
-        version: 0.42.4
+        version: 0.42.5
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
