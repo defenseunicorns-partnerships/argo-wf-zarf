@@ -142,7 +142,13 @@ controller:
 
   name: workflow-controller
   #TODO: Set resources for controller
-  resources: {}
+  resources:
+    request:
+      memory: ###ZARF_VAR_CONTR_MEM_REQ###
+      cpu: ###ZARF_VAR_CONTR_CPU_REQ###
+    limit:
+      memory: ###ZARF_VAR_CONTR_MEM_LIM###
+      cpu: ###ZARF_VAR_CONTR_CPU_LIM###
   clusterWorkflowTemplates:
     enabled: false
 
