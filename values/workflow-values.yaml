@@ -146,9 +146,9 @@ controller:
   clusterWorkflowTemplates:
     enabled: false
 
-  extraEnv:
-    - name: DEFAULT_REQUEUE_TIME
-      value: 1m
+  #extraEnv:
+    #- name: DEFAULT_REQUEUE_TIME
+      #value: 10s
 
   #TODO: Set retention policies
   # -- Workflow retention by number of workflows
