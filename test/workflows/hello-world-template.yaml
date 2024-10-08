@@ -26,6 +26,7 @@ spec:
           echo "this is an artifact test" > /tmp/artifact.txt
           echo "$(ls /tmp)"
           cat "/tmp/artifact.txt"
+          sleep 10
     outputs:
       artifacts:
         - name: temp-artifact
