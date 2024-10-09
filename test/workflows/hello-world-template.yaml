@@ -35,6 +35,14 @@ spec:
     metadata:
       annotations:
         proxy.istio.io/config: '{ "holdApplicationUntilProxyStarts": true }'
+    securityContext:
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
+      runAsUser: 70
+      capabilities:
+        drop:
+          - ALL
   podMetadata:
     annotations:
       workflows.argoproj.io/kill-cmd-istio-proxy: '["pilot-agent", "request", "POST", "quitquitquit"]'

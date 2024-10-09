@@ -158,7 +158,6 @@ controller:
 
 mainContainer:
   securityContext:
-    readOnlyRootFilesystem: true
     runAsNonRoot: true
     allowPrivilegeEscalation: false
     runAsUser: 1001
@@ -172,7 +171,11 @@ executor:
     repository: "###ZARF_VAR_ARGO_REPO###/argoexec"
   securityContext:
     runAsNonRoot: true
+    allowPrivilegeEscalation: false
     runAsUser: 1001
+    capabilities:
+      drop:
+        - ALL
 server:
   enabled: true
   image:
