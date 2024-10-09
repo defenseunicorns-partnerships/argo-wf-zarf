@@ -245,8 +245,8 @@ components:
           - values/workflow-values.yaml
     images:
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.5.10
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.5.11
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.10
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.11
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/opensource/argoproj/argocli
-      - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.10
+      - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.11
