@@ -63,6 +63,18 @@ variables:
   - name: CONTR_CPU_LIM
     description: CPU Limit for the controller
     default: 1200m
+  - name: SERVER_MEM_REQ
+    description: Memory request for the server
+    default: 64Mi
+  - name: SERVER_CPU_REQ
+    description: CPU request for the server
+    default: 100m
+  - name: SERVER_MEM_LIM
+    description: Memory Limit for the server
+    default: 128Mi
+  - name: SERVER_CPU_LIM
+    description: CPU Limit for the server
+    default: 500m
   - name: S3_ENDPOINT
     description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
     prompt: true

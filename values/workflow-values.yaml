@@ -181,6 +181,14 @@ server:
   image:
     registry: "###ZARF_VAR_ARGO_REGISTRY###"
     repository: "###ZARF_VAR_ARGO_SERVER_REPO###/argocli"
+  resources:
+    request:
+      memory: ###ZARF_VAR_SERVER_MEM_REQ###
+      cpu: ###ZARF_VAR_SERVER_CPU_REQ###
+    limit:
+      memory: ###ZARF_VAR_SERVER_MEM_LIM###
+      cpu: ###ZARF_VAR_SERVER_CPU_LIM###
+
   podSecurityContext:
     readOnlyRootFilesystem: true
     runAsNonRoot: true
