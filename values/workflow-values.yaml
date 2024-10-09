@@ -156,7 +156,6 @@ controller:
   #  failed: 3
   #  errored: 3
 
-#defaults for the main container
 mainContainer:
   securityContext:
     readOnlyRootFilesystem: true
