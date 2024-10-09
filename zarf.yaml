@@ -51,6 +51,18 @@ variables:
     description: Number of seconds before archiving a workflow after failure
     prompt: true
     default: "3600"
+  - name: CONTR_MEM_REQ
+    description: Memory request for the controller
+    default: 1Gi
+  - name: CONTR_CPU_REQ
+    description: CPU request for the controller
+    default: 500m
+  - name: CONTR_MEM_LIM
+    description: Memory Limit for the controller
+    default: 2Gi
+  - name: CONTR_CPU_LIM
+    description: CPU Limit for the controller
+    default: 1200m
   - name: S3_ENDPOINT
     description: 'Endpoint to use to connect to S3. Example: "s3.amazonaws.com" or "minio.bigbang.dev"'
     prompt: true

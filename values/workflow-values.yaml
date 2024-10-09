@@ -88,9 +88,6 @@ controller:
       podMetadata:
         annotations:
           workflows.argoproj.io/kill-cmd-istio-proxy: '["pilot-agent", "request", "POST", "quitquitquit"]'
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1001
   # TODO: Resource limiting of workers etc.
   # -- Number of workflow workers
   workflowWorkers: # 32
@@ -162,6 +159,17 @@ controller:
   #  completed: 10
   #  failed: 3
   #  errored: 3
+
+#defaults for the main container
+mainContainer:
+  securityContext:
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    runAsUser: 1001
+    capabilities:
+      drop:
+        - ALL
 
 executor:
   image:
