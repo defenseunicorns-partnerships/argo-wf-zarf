@@ -140,10 +140,10 @@ controller:
   name: workflow-controller
   #TODO: Set resources for controller
   resources:
-    request:
+    requests:
       memory: ###ZARF_VAR_CONTR_MEM_REQ###
       cpu: ###ZARF_VAR_CONTR_CPU_REQ###
-    limit:
+    limits:
       memory: ###ZARF_VAR_CONTR_MEM_LIM###
       cpu: ###ZARF_VAR_CONTR_CPU_LIM###
   clusterWorkflowTemplates:
@@ -169,6 +169,13 @@ executor:
   image:
     registry: "###ZARF_VAR_ARGO_REGISTRY###"
     repository: "###ZARF_VAR_ARGO_REPO###/argoexec"
+  resources:
+    requests:
+      memory: ###ZARF_VAR_EXEC_MEM_REQ###
+      cpu: ###ZARF_VAR_EXEC_CPU_REQ###
+    limits:
+      memory: ###ZARF_VAR_EXEC_MEM_LIM###
+      cpu: ###ZARF_VAR_EXEC_CPU_LIM###
   securityContext:
     runAsNonRoot: true
     allowPrivilegeEscalation: false
@@ -182,21 +189,16 @@ server:
     registry: "###ZARF_VAR_ARGO_REGISTRY###"
     repository: "###ZARF_VAR_ARGO_SERVER_REPO###/argocli"
   resources:
-    request:
+    requests:
       memory: ###ZARF_VAR_SERVER_MEM_REQ###
       cpu: ###ZARF_VAR_SERVER_CPU_REQ###
-    limit:
+    limits:
       memory: ###ZARF_VAR_SERVER_MEM_LIM###
       cpu: ###ZARF_VAR_SERVER_CPU_LIM###
 
   podSecurityContext:
-    readOnlyRootFilesystem: true
     runAsNonRoot: true
-    allowPrivilegeEscalation: false
     runAsUser: 1001
-    capabilities:
-      drop:
-        - ALL
   rbac:
     create: false
   securityContext:
