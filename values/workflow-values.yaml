@@ -88,9 +88,6 @@ controller:
       podMetadata:
         annotations:
           workflows.argoproj.io/kill-cmd-istio-proxy: '["pilot-agent", "request", "POST", "quitquitquit"]'
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1001
   # TODO: Resource limiting of workers etc.
   # -- Number of workflow workers
   workflowWorkers: # 32
@@ -142,7 +139,13 @@ controller:
 
   name: workflow-controller
   #TODO: Set resources for controller
-  resources: {}
+  resources:
+    requests:
+      memory: ###ZARF_VAR_CONTR_MEM_REQ###
+      cpu: ###ZARF_VAR_CONTR_CPU_REQ###
+    limits:
+      memory: ###ZARF_VAR_CONTR_MEM_LIM###
+      cpu: ###ZARF_VAR_CONTR_CPU_LIM###
   clusterWorkflowTemplates:
     enabled: false
 
@@ -153,26 +156,49 @@ controller:
   #  failed: 3
   #  errored: 3
 
-executor:
-  image:
-    registry: "###ZARF_VAR_ARGO_REGISTRY###"
-    repository: "###ZARF_VAR_ARGO_REPO###/argoexec"
+mainContainer:
   securityContext:
-    runAsNonRoot: true
-    runAsUser: 1001
-server:
-  enabled: true
-  image:
-    registry: "###ZARF_VAR_ARGO_REGISTRY###"
-    repository: "###ZARF_VAR_ARGO_SERVER_REPO###/argocli"
-  podSecurityContext:
-    readOnlyRootFilesystem: true
     runAsNonRoot: true
     allowPrivilegeEscalation: false
     runAsUser: 1001
     capabilities:
       drop:
         - ALL
+
+executor:
+  image:
+    registry: "###ZARF_VAR_ARGO_REGISTRY###"
+    repository: "###ZARF_VAR_ARGO_REPO###/argoexec"
+  resources:
+    requests:
+      memory: ###ZARF_VAR_EXEC_MEM_REQ###
+      cpu: ###ZARF_VAR_EXEC_CPU_REQ###
+    limits:
+      memory: ###ZARF_VAR_EXEC_MEM_LIM###
+      cpu: ###ZARF_VAR_EXEC_CPU_LIM###
+  securityContext:
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    runAsUser: 1001
+    capabilities:
+      drop:
+        - ALL
+server:
+  enabled: true
+  image:
+    registry: "###ZARF_VAR_ARGO_REGISTRY###"
+    repository: "###ZARF_VAR_ARGO_SERVER_REPO###/argocli"
+  resources:
+    requests:
+      memory: ###ZARF_VAR_SERVER_MEM_REQ###
+      cpu: ###ZARF_VAR_SERVER_CPU_REQ###
+    limits:
+      memory: ###ZARF_VAR_SERVER_MEM_LIM###
+      cpu: ###ZARF_VAR_SERVER_CPU_LIM###
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
   rbac:
     create: false
   securityContext:
