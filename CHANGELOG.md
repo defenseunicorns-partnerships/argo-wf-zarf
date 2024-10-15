@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.1.7](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.6...0.1.7) (2024-10-15)
+
+
+### Features
+
+* resources ([#93](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/93)) ([4186b5d](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/4186b5db3d352c1dd06c70db5f692042b439f9ad))
+* Update workflow role ([#87](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/87)) ([9c17711](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/9c17711a7d94063c59c3cfbdd403ec56cca38675))
+
+
+### Bug Fixes
+
+* istio-proxy hanging ([#90](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/90)) ([a6142c7](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/a6142c7ccd0ff32957138bf76e018919f6dc3b2b))
+
+
+### Miscellaneous Chores
+
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v5 ([#89](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/89)) ([41ebd60](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/41ebd605234cc369ae6c1949d627a95203a58440))
+* **deps:** update pre-commit hook renovatebot/pre-commit-hooks to v38.106.1 ([#85](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/85)) ([6695827](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/669582729e4c2e15cc0ec93602c2f54c59cbc773))
+* **deps:** update pre-commit hook renovatebot/pre-commit-hooks to v38.116.0 ([#92](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/92)) ([7270e2d](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/7270e2d7f73c64d8c9f4d8d2d69f8b10bce7d599))
+* **deps:** update stable ([#84](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/84)) ([9d32393](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/9d32393b0ffb5b8b1f216ddcbb8a49deaf0ccfbe))
+* **deps:** update stable ([#91](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/91)) ([a42ee2d](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/a42ee2dff807c78f25a351ff6f0cf2ed65fdfc8a))
+
 ## [0.1.6](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.5...0.1.6) (2024-09-30)
 
 
