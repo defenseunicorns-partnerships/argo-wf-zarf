@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.8](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.7...0.1.8) (2024-10-25)
+
+
+### Miscellaneous Chores
+
+* **deps:** update peter-murray/workflow-application-token-action action to v4 ([#96](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/96)) ([a308466](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/a308466aa49b8da7e40540cb45813cf5b3ab8834))
+* **deps:** update stable ([#95](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/95)) ([1d84196](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/1d841968835b90d09a18144534bc1caa4ad7386f))
+
 ## [0.1.7](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.6...0.1.7) (2024-10-15)
 
 
