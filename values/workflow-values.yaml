@@ -215,7 +215,7 @@ server:
   authModes: ["client"]
   sso:
     enabled: false
-useStaticCredentials: "###ZARF_VAR_DEV_DEPLOYMENT###"
+useStaticCredentials: ###ZARF_VAR_DEV_DEPLOYMENT###
 artifactRepositoryRef:
   artifact-repositories:
     annotations:
