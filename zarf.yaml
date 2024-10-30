@@ -51,6 +51,8 @@ variables:
     description: Number of seconds before archiving a workflow after failure
     prompt: true
     default: "3600"
+  - name: DEV_DEPLOYMENT
+    description: Boolean value (set in zarf-config.yaml) on whether to use static credentials for artifact repositories
   - name: CONTR_MEM_REQ
     description: Memory request for the controller
     default: 512Mi
