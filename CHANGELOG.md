@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.9](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.8...0.1.9) (2024-10-31)
+
+
+### Bug Fixes
+
+* dev-deployment variable added to zarf.yaml ([#99](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/99)) ([0cc32fc](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/0cc32fc37fc8de051e862ac3c65d0e5a264600d2))
+
+
+### Miscellaneous Chores
+
+* **deps:** update stable ([#97](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/97)) ([df8e0d7](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/df8e0d74640f10e708089a408f72bb9b8fffd084))
+
 ## [0.1.8](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.7...0.1.8) (2024-10-25)
 
 
