@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.10](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.9...0.1.10) (2024-11-13)
+
+
+### Miscellaneous Chores
+
+* **deps:** update pre-commit hook renovatebot/pre-commit-hooks to v39 ([#102](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/102)) ([5e91ffe](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/5e91ffe7d134f2ee571cefac3d190e2c34e67493))
+* **deps:** update stable ([#101](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/101)) ([abc51e4](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/abc51e4be1581f0ebb004aaf498fe6c2cc202a4a))
+
 ## [0.1.9](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.8...0.1.9) (2024-10-31)
 
 
