@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.14](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.13...0.1.14) (2024-12-17)
+
+
+### Miscellaneous Chores
+
+* **deps:** update stable ([#111](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/111)) ([029182b](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/029182bf8d381399c0ee4373f70f0e4eb5a827ad))
+
 ## [0.1.13](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.12...0.1.13) (2024-12-09)
 
 
