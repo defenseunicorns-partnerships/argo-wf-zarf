@@ -32,8 +32,7 @@ jobs:
           set -a; source .env; set +a
           brew install defenseunicorns/tap/uds@${UDS_CLI_VERSION}
 
-      - name: Build the zarf package
-        run: uds run build-package
-
-      - name: Publish the zarf package
-        run: uds zarf package publish zarf-package-*.tar.zst oci://${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+      - name: Build and publish the zarf package
+        run: |
+          uds zarf package create --confirm --flavor vanilla -a arm64 -o oci://${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+          uds zarf package create --confirm --flavor vanilla -a amd64 -o oci://${{env.REGISTRY}}/${{env.IMAGE_NAME}}
