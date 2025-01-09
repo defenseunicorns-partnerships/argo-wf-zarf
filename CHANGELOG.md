@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.16](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.15...0.1.16) (2025-01-09)
+
+
+### Continuous Integration
+
+* Fix UDS CLI version used in tag push workflow ([#116](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/116)) ([5996ea3](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/5996ea336bd1d5368bdb76c8969ec65e45dd189b))
+
 ## [0.1.15](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.14...0.1.15) (2025-01-06)
 
 
