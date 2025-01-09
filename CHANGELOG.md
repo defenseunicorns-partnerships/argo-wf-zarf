@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.17](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.16...0.1.17) (2025-01-09)
+
+
+### Continuous Integration
+
+* Publish arm64 package when releasing ([c22a276](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/c22a27600c325a70d60fcd218b4c948730a88cee))
+
 ## [0.1.16](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.15...0.1.16) (2025-01-09)
 
 
