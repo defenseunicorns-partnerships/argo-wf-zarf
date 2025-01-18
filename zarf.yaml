@@ -233,7 +233,7 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
-        version: 0.45.3
+        version: 0.45.4
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
@@ -265,14 +265,14 @@ components:
       - name: argo-workflows
         namespace: argo
         # renovate: datasource=docker depName=ghcr.io/argoproj/argo-helm/argo-workflows
-        version: 0.45.3
+        version: 0.45.4
         url: oci://ghcr.io/argoproj/argo-helm/argo-workflows
         valuesFiles:
           - values/workflow-values.yaml
     images:
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.5.11
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/workflow-controller:v3.6.0
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec
-      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.5.11
+      - registry1.dso.mil/ironbank/kubeflow/argoproj/argoexec:v3.6.0
       # renovate: datasource=docker depName=registry1.dso.mil/ironbank/opensource/argoproj/argocli
-      - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.5.11
+      - registry1.dso.mil/ironbank/opensource/argoproj/argocli:v3.6.2
