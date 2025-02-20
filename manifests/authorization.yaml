@@ -1,12 +1,12 @@
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  namespace: argo-server
-  name: allow-svc-a
+  namespace: argo
+  name: argo-server-auth
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: argo-server
+      app.kubernetes.io/name: argo-workflows-server
   action: ALLOW
   rules:
   - to:
@@ -15,14 +15,13 @@ spec:
         paths: ["/*"]
   - from:
     - source:
-      principals:
-        - "cluster.local/ns/argo/sa/wfapi"
-        - "cluster.local/ns/argo/sa/argo-server"
-        - "cluster.local/ns/argo/sa/controller-account"
-      requestPrincipals:
-        - "kubernetes/serviceaccount/system:serviceaccount:argo:wfapi"
-        - "kubernetes/serviceaccount/system:serviceaccount:argo:argo-server"
+        #principals:
+          #- "cluster.local/ns/argo/sa/wfapi"
+          #- "cluster.local/ns/argo/sa/argo-server"
+          #- "cluster.local/ns/argo/sa/controller-account"
+        requestPrincipals:
+          - "kubernetes/*"
     to:
     - operation:
-      methods: ["POST", "PUT", "DELETE"]
-      paths: ["/api/v1/*"]
+        methods: ["POST", "PUT", "DELETE"]
+        paths: ["/api/v1/*"]

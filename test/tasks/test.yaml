@@ -24,4 +24,4 @@ tasks:
     description: Outputs the token for argo server's client login
     actions:
       - cmd: |
-          uds zarf tools kubectl get secret server-viewer.service-account-token -n argo -o jsonpath="{.data['token']}" | base64 -d
+          uds zarf tools kubectl get secret argo-server.service-account-token -n argo -o jsonpath="{.data['token']}" | base64 -d
