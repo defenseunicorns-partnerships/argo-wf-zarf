@@ -202,11 +202,11 @@ server:
     create: false
     name: "argo-server"
   authModes:
-    - sso
+    - client
   #extraArgs:
     #- "--access-control-allow-origin=*"
   sso:
-    enabled: true
+    enabled: false
     rabc:
       enabled: true
     scopes:
@@ -219,7 +219,6 @@ server:
       name: ###ZARF_VAR_CLIENT_SECRET###
       key: secret
     redirectUrl: "https://workflows.###ZARF_VAR_DOMAIN###/ouath2/callback"
-    insecureSkipVerify: true
 
   image:
     registry: "###ZARF_VAR_ARGO_REGISTRY###"
