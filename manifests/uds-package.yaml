@@ -16,6 +16,7 @@ spec:
       - direction: Egress
         ports:
           - ###ZARF_VAR_S3_PORT###
+          - 443
     expose:
       - description: Expose argo server to traffic
         service: argo-workflows-server
