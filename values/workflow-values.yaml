@@ -202,7 +202,7 @@ server:
     create: false
     name: "argo-server"
   authModes:
-    - client
+    - sso
   extraArgs:
     - "--access-control-allow-origin=*"
   sso:
