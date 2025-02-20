@@ -23,5 +23,5 @@ spec:
         selector:
           app.kubernetes.io/name: argo-workflows-server
         host: workflows
-        gateway: tenant
+        gateway: admin
         port: 2746
