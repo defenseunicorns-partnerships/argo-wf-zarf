@@ -1,36 +1,28 @@
 apiVersion: security.istio.io/v1
-kind: RequestAuthentication
-metadata:
-  name: argo-server-auth
-  namespace: istio-system
-spec:
-  selector:
-    matchLabels:
-      app.kuberneties.io/name: argo-workflows-server
-  jwtRules:
-  - issuer: https://sso.uds.dev/realms/uds
-    jwksUri: http://keycloak-http.keycloak.svc.cluster.local:8080/relams/uds/protocol/openid-connect/certs
-    forwardOriginalToken: false
-    outputClaimToHeaders:
-      - header: Authorization
-        claim: sa-bearer
-  - issuer: kubernetes/serviceaccount
-    forwardOriginalToken: true
----
-apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: uds-argo-webserver-authservice
-  namespace: argo
+  namespace: argo-server
+  name: allow-svc-a
 spec:
-  action: CUSTOM
-  provider:
-    name: authservice
-  rules:
-  - when:
-    - key: request.headers[authorization]
-      notValues:
-      - '*'
   selector:
     matchLabels:
-      app.kubernetes.io/name: argo-workflows-server
+      app.kubernetes.io/name: argo-server
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/*"]
+  - from:
+    - source:
+      principals:
+        - "cluster.local/ns/argo/sa/wfapi"
+        - "cluster.local/ns/argo/sa/argo-server"
+        - "cluster.local/ns/argo/sa/controller-account"
+      requestPrincipals:
+        - "kubernetes/serviceaccount/system:serviceaccount:argo:wfapi"
+        - "kubernetes/serviceaccount/system:serviceaccount:argo:argo-server"
+    to:
+    - operation:
+      methods: ["POST", "PUT", "DELETE"]
+      paths: ["/api/v1/*"]
