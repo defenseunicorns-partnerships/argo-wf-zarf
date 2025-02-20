@@ -202,11 +202,11 @@ server:
     create: false
     name: "argo-server"
   authModes:
-    - ["sso"]
+    - "client"
   extraArgs:
     - "--access-control-allow-origin=*"
   sso:
-    enabled: true
+    enabled: false
     rabc:
       enabled: false
     scopes: []

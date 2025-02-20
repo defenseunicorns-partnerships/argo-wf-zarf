@@ -1,0 +1,36 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: argo-server-auth
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app.kuberneties.io/name: argo-workflows-server
+  jwtRules:
+  - issuer: https://sso.uds.dev/realms/uds
+    jwksUri: http://keycloak-http.keycloak.svc.cluster.local:8080/relams/uds/protocol/openid-connect/certs
+    forwardOriginalToken: false
+    outputClaimToHeaders:
+      - header: Authorization
+        claim: sa-bearer
+  - issuer: kubernetes/serviceaccount
+    forwardOriginalToken: true
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: uds-argo-webserver-authservice
+  namespace: argo
+spec:
+  action: CUSTOM
+  provider:
+    name: authservice
+  rules:
+  - when:
+    - key: request.headers[authorization]
+      notValues:
+      - '*'
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: argo-workflows-server
