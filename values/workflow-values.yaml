@@ -203,10 +203,10 @@ server:
     name: "argo-server"
   authModes:
     - client
-  #extraArgs:
-    #- "--access-control-allow-origin=*"
+  extraArgs:
+    - "--access-control-allow-origin=*"
   sso:
-    enabled: false
+    enabled: true
     rabc:
       enabled: true
     scopes:
