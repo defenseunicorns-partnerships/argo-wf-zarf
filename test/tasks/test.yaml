@@ -15,3 +15,8 @@ tasks:
     description: Submits a test workflow with the hello-world template
     actions:
       - cmd: argo submit -n argo test/workflows/hello-world.yaml
+  - name: keycloak-password
+    description: Outputs the keycloak admin password to stdout
+    actions:
+      - cmd: |
+          uds zarf tools kubectl get secret keycloak-admin-password -n keycloak -o jsonpath="{.data['password']}" | base64 -d

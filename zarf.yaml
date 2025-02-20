@@ -51,8 +51,6 @@ variables:
     description: Number of seconds before archiving a workflow after failure
     prompt: true
     default: "3600"
-  - name: DEV_DEPLOYMENT
-    description: Boolean value (set in zarf-config.yaml) on whether to use static credentials for artifact repositories
   - name: CONTR_MEM_REQ
     description: Memory request for the controller
     default: 512Mi
@@ -65,6 +63,14 @@ variables:
   - name: CONTR_CPU_LIM
     description: CPU Limit for the controller
     default: 1200m
+  - name: DEV_DEPLOYMENT
+    description: Boolean value (set in zarf-config.yaml) on whether to use static credentials for artifact repositories
+  - name: DOMAIN
+    description: Domain that argo is deployed to
+    default: uds.dev
+  - name: CLIENT_SECRET
+    description: Name of the client secret created for argo server
+    default: argo-workflows-client
   - name: EXEC_MEM_REQ
     description: Memory request for the controller
     default: 512Mi

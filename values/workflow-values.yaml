@@ -185,6 +185,42 @@ executor:
         - ALL
 server:
   enabled: true
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1001
+  rbac:
+    create: false
+  securityContext:
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    runAsUser: 1001
+    capabilities:
+      drop:
+        - ALL
+  serviceAccount:
+    create: false
+    name: "argo-server"
+  authModes:
+    - sso
+  #extraArgs:
+    #- "--access-control-allow-origin=*"
+  sso:
+    enabled: true
+    rabc:
+      enabled: true
+    scopes:
+      - groups
+    issuer: "https://sso.###ZARF_VAR_DOMAIN###/realms/uds"
+    clientId:
+      name: ###ZARF_VAR_CLIENT_SECRET###
+      key: clientId
+    clientSecret:
+      name: ###ZARF_VAR_CLIENT_SECRET###
+      key: secret
+    redirectUrl: "https://workflows.###ZARF_VAR_DOMAIN###/ouath2/callback"
+    insecureSkipVerify: true
+
   image:
     registry: "###ZARF_VAR_ARGO_REGISTRY###"
     repository: "###ZARF_VAR_ARGO_SERVER_REPO###/argocli"
@@ -212,9 +248,6 @@ server:
   serviceAccount:
     create: false
     name: "argo-server"
-  authModes: ["client"]
-  sso:
-    enabled: false
 useStaticCredentials: ###ZARF_VAR_DEV_DEPLOYMENT###
 artifactRepositoryRef:
   artifact-repositories:
