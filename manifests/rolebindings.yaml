@@ -47,7 +47,7 @@ metadata:
   namespace: "###ZARF_CONST_NAMESPACE###"
 subjects:
 - kind: ServiceAccount
-  name: argo-server-default
+  name: server-view-only
   namespace: "###ZARF_CONST_NAMESPACE###"
 roleRef:
   kind: Role
