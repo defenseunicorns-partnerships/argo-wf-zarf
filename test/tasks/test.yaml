@@ -20,3 +20,8 @@ tasks:
     actions:
       - cmd: |
           uds zarf tools kubectl get secret keycloak-admin-password -n keycloak -o jsonpath="{.data['password']}" | base64 -d
+  - name: server-token
+    description: Outputs the token for argo server's client login
+    actions:
+      - cmd: |
+          uds zarf tools kubectl get secret server-viewer.service-account-token -n argo -o jsonpath="{.data['password']}" | base64 -d
