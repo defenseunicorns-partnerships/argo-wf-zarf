@@ -202,13 +202,13 @@ server:
     create: false
     name: "argo-server"
   authModes:
-    - sso
+    - ["sso"]
   extraArgs:
     - "--access-control-allow-origin=*"
   sso:
     enabled: true
     rabc:
-      enabled: true
+      enabled: false
     scopes: []
     issuer: "https://sso.###ZARF_VAR_DOMAIN###/realms/uds"
     clientId:
