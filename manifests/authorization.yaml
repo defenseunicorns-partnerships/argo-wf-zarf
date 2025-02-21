@@ -7,21 +7,14 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: argo-workflows-server
-  action: ALLOW
+  action: DENY
   rules:
   - to:
     - operation:
-        methods: ["GET"]
-        paths: ["/*"]
-  - from:
-    - source:
-        #principals:
-          #- "cluster.local/ns/argo/sa/wfapi"
-          #- "cluster.local/ns/argo/sa/argo-server"
-          #- "cluster.local/ns/argo/sa/controller-account"
-        requestPrincipals:
-          - "kubernetes/*"
-    to:
-    - operation:
         methods: ["POST", "PUT", "DELETE"]
         paths: ["/api/v1/*"]
+        ports:
+          - "2746"
+    when:
+      - key: request.auth.claims[client_id]
+        notValues: ["server-api"]
