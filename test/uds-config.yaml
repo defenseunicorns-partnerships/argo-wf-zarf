@@ -4,6 +4,8 @@ variables:
       - name: "argo"
         policy: "public"
         purge: false
+      - name: "uds"
+        policy: "public"
     users:
       - accessKey: test-user
         secretKey: test-secret
