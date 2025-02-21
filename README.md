@@ -39,31 +39,36 @@ If using AWS S3 as an artifact repository, do not use a leading `/` to define S3
 
 If using Minio S3 as an artifact repository, use a leading `/` only for `input` artifacts.  Do not use a leading `/` for `output` artifacts.
 
-## Using Argo Server with Client Auth
-You will need a token to use the Argo Server with Client Auth.  A token can be created for an existing serviceaccount by creating a kubernetes secret with the following pattern:
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: wfapi.service-account-token
-  namespace: argo
-  annotations:
-    kubernetes.io/service-account.name: wfapi
-type: kubernetes.io/service-account-token
-```
-This assumes the service account named `wfapi` exists in the `argo` namespace and has appropriate permissions via a `rolebinding`.
+## Using Argo Server with keycloak
+Anything trying to connect to the Argo Server, must have a keycloak-issued JWT with the `argo-server` audience.  Additionally, the `client_id` must be `server-api` to use `POST`, `PUT`, or `DELETE` methods.
 
-Programmatically, the token can be retrieved by the following:
+Programmatically, a token can be retrieved by the following:
 ```bash
-# Get the token
-ARGO_TOKEN="$(uds zarf tools kubectl get secret -n argo wfapi.service-account-token -o=jsonpath='{.data.token}' | base64 --decode)"
+# Get the client secret
+CLIENT_SECRET="$(uds zarf tools kubectl get secret -n argo argo-workflows-client -o=jsonpath='{.data.secret}' | base64 --decode)"
+JWT = "$(
+  curl -X 'POST' \
+    'https://sso.uds.dev/realms/uds/protocol/openid-connect/token' \
+    -d grant_type=client_credentials \
+    -H 'accept: application/json' \
+    -H "Authorization: Basic $(echo -n server-api:${CLIENT_SECRET} | base64)" | jq -r '.access_token'
+)
 ```
-An example command to list workflows:
+An example command to submit workflows:
 ```bash
-## First, in a different terminal window, port-forward to the argo-server
-kubectl port-forward svc/argo-workflows-server -n argo 2746:2746
-## Then, in a separate terminal, run the following command
-curl http://localhost:2746/api/v1/workflows/argo -H "Authorization: Bearer $ARGO_TOKEN"
+curl -i -X 'POST' \
+  'https://workflows.uds.dev/api/v1/workflows/argo/submit' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer ${JWT}" \
+  -d '{
+  "resourceName": "hello-world-template",
+  "resourceKind": "WorkflowTemplate",
+  "submitOptions": {
+      "generateName": "hello-world-",
+      "parameters": []
+    }
+  }'
 ```
 
 ## Zarf variables
