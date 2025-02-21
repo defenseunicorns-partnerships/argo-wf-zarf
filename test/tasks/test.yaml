@@ -40,6 +40,18 @@ tasks:
     description: submits a workflow with the API token
     actions:
       - cmd: |
+          uds zarf tools kubectl get secret argo-workflows-client -n argo -o jsonpath="{.data['secret']}" | base64 -d
+        setVariables:
+          - name: CLIENT_SECRET
+      - cmd: |
+          curl -X 'POST' \
+            'https://sso.uds.dev/realms/uds/protocol/openid-connect/token' \
+            -d grant_type=client_credentials \
+            -H 'accept: application/json' \
+            -H "Authorization: Basic $(echo -n server-api:${CLIENT_SECRET} | base64)" | jq -r '.access_token'
+        setVariables:
+          - name: JWT
+      - cmd: |
           curl -i -X 'POST' \
             'https://workflows.uds.dev/api/v1/workflows/argo/submit' \
             -H 'accept: application/json' \
