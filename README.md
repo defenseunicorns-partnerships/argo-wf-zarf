@@ -52,7 +52,7 @@ JWT = "$(
     -d grant_type=client_credentials \
     -H 'accept: application/json' \
     -H "Authorization: Basic $(echo -n server-api:${CLIENT_SECRET} | base64)" | jq -r '.access_token'
-)
+)"
 ```
 An example command to submit workflows:
 ```bash
