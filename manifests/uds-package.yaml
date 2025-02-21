@@ -28,7 +28,7 @@ spec:
     - name: argo-server
       clientId: argo-server
       redirectUris:
-        - "https://workflows.###ZARF_VAR_DOMAIN###/oauth2/*"
+        - "https://workflows.###ZARF_VAR_DOMAIN###/oauth2/callback"
       enableAuthserviceSelector:
         app.kubernetes.io/name: argo-workflows-server
     - name: server-api
