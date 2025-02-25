@@ -146,6 +146,7 @@ components:
         files:
           - manifests/roles.yaml
           - manifests/serviceaccounts.yaml
+          - manifests/service-account-tokens.yaml
           - manifests/peer-auth.yaml
           - manifests/uds-package.yaml
           - manifests/authorization.yaml
