@@ -1,0 +1,20 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  namespace: argo
+  name: argo-server-auth
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: argo-workflows-server
+  action: DENY
+  rules:
+  - to:
+    - operation:
+        methods: ["POST", "PUT", "DELETE"]
+        paths: ["/api/v1/*"]
+        ports:
+          - "2746"
+    when:
+      - key: request.auth.claims[client_id]
+        notValues: ["server-api"]

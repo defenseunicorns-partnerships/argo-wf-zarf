@@ -16,3 +16,34 @@ spec:
       - direction: Egress
         ports:
           - ###ZARF_VAR_S3_PORT###
+    expose:
+      - description: Expose argo server to traffic
+        service: argo-workflows-server
+        selector:
+          app.kubernetes.io/name: argo-workflows-server
+        host: workflows
+        gateway: tenant
+        port: 2746
+  sso:
+    - name: argo-server
+      clientId: argo-server
+      redirectUris:
+        - "https://workflows.###ZARF_VAR_DOMAIN###/oauth2/callback"
+      enableAuthserviceSelector:
+        app.kubernetes.io/name: argo-workflows-server
+    - name: server-api
+      clientId: server-api
+      standardFlowEnabled: false
+      serviceAccountsEnabled: true
+      secretName: ###ZARF_VAR_CLIENT_SECRET###
+      protocolMappers:
+      - name: audience
+        protocol: "openid-connect"
+        protocolMapper: "oidc-audience-mapper"
+        config:
+          included.client.audience: argo-server
+          access.token.claim: "true"
+          id.token.claim: "false"
+          lightweight.claim: "false"
+          userinfo.token.claim: "false"
+          introspection.token.claim: "true"

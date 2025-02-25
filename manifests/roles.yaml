@@ -83,6 +83,7 @@ rules:
   verbs:
   - get
   - list
+  - watch
 - apiGroups:
   - ""
   resourceNames:
@@ -103,17 +104,11 @@ rules:
   - watch
 - apiGroups:
   - ""
-  resourceNames:
-  - argo-workflows-agent-ca-certificates
-  - minio-tokens
-  - postgres-config
-  - argo-workflow.service-account-token
-  - argo-server.service-account-token
-  - controller-account.service-account-token
   resources:
   - secrets
   verbs:
   - get
+  - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -310,6 +305,120 @@ rules:
   - argo-workflows-agent-ca-certificates
   - minio-tokens
   - postgres-config
+  resources:
+  - secrets
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: view-server-role
+  namespace: "###ZARF_CONST_NAMESPACE###"
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
+  - persistentvolumeclaims/finalizers
+  verbs:
+  - get
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflows
+  - workflows/finalizers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtemplates
+  - workflowtemplates/finalizers
+  - workflowtasksets
+  - workflowtasksets/finalizers
+  - workflowartifactgctasks
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtaskresults
+  - workflowtaskresults/finalizers
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - cronworkflows
+  - cronworkflows/finalizers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - ""
+  resourceNames:
+  - postgres-config
+  resources:
+  - secrets
+  verbs:
+  - get
+- apiGroups:
+  - coordination.k8s.io
+  resourceNames:
+  - workflow-controller
+  - workflow-controller-lease
+  resources:
+  - leases
+  verbs:
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resourceNames:
+  - argo-workflows-agent-ca-certificates
+  - minio-tokens
+  - postgres-config
+  - argo-workflow.service-account-token
+  - argo-server.service-account-token
+  - controller-account.service-account-token
+  - ###ZARF_VAR_CLIENT_SECRET###
   resources:
   - secrets
   verbs:

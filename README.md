@@ -16,13 +16,18 @@ If trying to work with the `ironbank` flavor, you will need the following enviro
 Most of the installation can be done via the tasks.yaml and `uds run` commands.  Here are some good targets to start with:
 * `ci:up`: A clean installation including a k3d cluster and uds-slim-dev installation
 * `tests:template-up`: Deploys a hello world WorkflowTemplate
-* `tests:submit-workflow`: Submits a hello world workflow
+* `tests:submit-workflow`: Submits a hello world workflow using kubectl
+* `tests:server-token` : Gets a JWT for the server-api client
+* `tests:submit-api-workflow --set JWT={JWT}` Submits a workflow using the argo server (replace `{JWT}` with the actual token)
 * `ci:package-recycle`: Removes the package, rebuilds it, and redeploys it.
 * `ci:down`: removes everything and deletes the k3d cluster
 * `clean`: Cleans the directory of all build/test artifacts
 * `test`: Runs the full end-to-end test suite
 
 Run `uds run --list-all` to see all available tasks.  Of note, if building your own zarf package, you need to include the `--components=dev-setup` flag in the `zarf package create` command in order to use minio vice AWS S3 storage.
+
+## Argo Server
+This deployment sets up a read-only installation of the Argo Server and exposes the host at `https://workflows.uds.dev` by default (actually `https://workflows.{DOMAIN}`).  AuthService integration is a little spotty so you may need to navigate to user info and click login to trigger the redirects.
 
 ## Workflow specifics
 The `/test/workflows/` directory has a hello-world template and workflow to test the deployment.  If a workflow is failing you can elect to keep the pod alive to look at logs by adding the field `spec.podGC.strategy` and setting it to `OnWorkflowSuccess` (the deployment defaults it to `OnPodCompletion`).
@@ -34,31 +39,36 @@ If using AWS S3 as an artifact repository, do not use a leading `/` to define S3
 
 If using Minio S3 as an artifact repository, use a leading `/` only for `input` artifacts.  Do not use a leading `/` for `output` artifacts.
 
-## Using Argo Server with Client Auth
-You will need a token to use the Argo Server with Client Auth.  A token can be created for an existing serviceaccount by creating a kubernetes secret with the following pattern:
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: wfapi.service-account-token
-  namespace: argo
-  annotations:
-    kubernetes.io/service-account.name: wfapi
-type: kubernetes.io/service-account-token
-```
-This assumes the service account named `wfapi` exists in the `argo` namespace and has appropriate permissions via a `rolebinding`.
+## Using Argo Server with keycloak
+Anything trying to connect to the Argo Server, must have a keycloak-issued JWT with the `argo-server` audience.  Additionally, the `client_id` must be `server-api` to use `POST`, `PUT`, or `DELETE` methods.
 
-Programmatically, the token can be retrieved by the following:
+Programmatically, a token can be retrieved by the following:
 ```bash
-# Get the token
-ARGO_TOKEN="$(uds zarf tools kubectl get secret -n argo wfapi.service-account-token -o=jsonpath='{.data.token}' | base64 --decode)"
+# Get the client secret
+CLIENT_SECRET="$(uds zarf tools kubectl get secret -n argo argo-workflows-client -o=jsonpath='{.data.secret}' | base64 --decode)"
+JWT = "$(
+  curl -X 'POST' \
+    'https://sso.uds.dev/realms/uds/protocol/openid-connect/token' \
+    -d grant_type=client_credentials \
+    -H 'accept: application/json' \
+    -H "Authorization: Basic $(echo -n server-api:${CLIENT_SECRET} | base64)" | jq -r '.access_token'
+)"
 ```
-An example command to list workflows:
+An example command to submit workflows:
 ```bash
-## First, in a different terminal window, port-forward to the argo-server
-kubectl port-forward svc/argo-workflows-server -n argo 2746:2746
-## Then, in a separate terminal, run the following command
-curl http://localhost:2746/api/v1/workflows/argo -H "Authorization: Bearer $ARGO_TOKEN"
+curl -i -X 'POST' \
+  'https://workflows.uds.dev/api/v1/workflows/argo/submit' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer ${JWT}" \
+  -d '{
+  "resourceName": "hello-world-template",
+  "resourceKind": "WorkflowTemplate",
+  "submitOptions": {
+      "generateName": "hello-world-",
+      "parameters": []
+    }
+  }'
 ```
 
 ## Zarf variables
@@ -69,6 +79,7 @@ curl http://localhost:2746/api/v1/workflows/argo -H "Authorization: Bearer $ARGO
 | ARGO_REGISTRY                | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
 | ARGO REPO                    | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
 | ARGO_SERVER_REPO             | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
+| CLIENT_SECRET                | no       | argo-workflows-client     | The secret where the the clientSecret and other info about the server-api keycloak client reside                                                  |
 | CONTR_CPU_LIM                | yes      | 1200m                     | CPU Limit for the Workflow Controller                                                                                                             |
 | CONTR_MEM_LIM                | yes      | 2Gi                       | Memory Limit for the Workflow Controller                                                                                                          |
 | CONTR_CPU_REQ                | yes      | 500m                      | CPU Request for the Workflow Controller                                                                                                           |
@@ -76,6 +87,7 @@ curl http://localhost:2746/api/v1/workflows/argo -H "Authorization: Bearer $ARGO
 | DEFAULT_ARTIFACT_REPO        | yes      | minio-artifact-repository | choice between minio-artifact-repository for a dev setup with minio, or aws-artifact-repository for an AWS S3 setup with IRSA                     |
 | DEPLOY_POSTGRESQL            | no       | None                      | If not set to False, deploys the postgresql chart to the argo namespace                                                                           |
 | DEV_DEPLOYMENT               | yes      | None                      | Boolean value (set in zarf-config.yaml) on whether to use static credentials for artifact repositories                                            |
+| DOMAIN                       | no       | uds.dev                   | The Domain for the deployment (for virtualService)                                                                                                |
 | EXEC_CPU_LIM                 | yes      | 500m                      | CPU Limit for the Workflow Executor                                                                                                               |
 | EXEC_MEM_LIM                 | yes      | 1Gi                       | Memory Limit for the Workflow Executor                                                                                                            |
 | EXEC_CPU_REQ                 | yes      | 100m                      | CPU Request for the Workflow Executor                                                                                                             |

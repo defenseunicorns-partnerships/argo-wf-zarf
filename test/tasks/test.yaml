@@ -1,4 +1,7 @@
 # These tasks are not meant to be run directly, they are imported by the tasks.yaml file in the root directory
+variables:
+  - name: CLIENT_SECRET
+  - name: JWT
 
 tasks:
   - name: template-up
@@ -15,3 +18,50 @@ tasks:
     description: Submits a test workflow with the hello-world template
     actions:
       - cmd: argo submit -n argo test/workflows/hello-world.yaml
+  - name: keycloak-password
+    description: Outputs the keycloak admin password to stdout
+    actions:
+      - cmd: |
+          uds zarf tools kubectl get secret keycloak-admin-password -n keycloak -o jsonpath="{.data['password']}" | base64 -d
+  - name: server-token
+    description: Outputs the token for argo server's client login
+    actions:
+      - cmd: |
+          uds zarf tools kubectl get secret argo-workflows-client -n argo -o jsonpath="{.data['secret']}" | base64 -d
+        setVariables:
+          - name: CLIENT_SECRET
+      - cmd: |
+          curl -X 'POST' \
+            'https://sso.uds.dev/realms/uds/protocol/openid-connect/token' \
+            -d grant_type=client_credentials \
+            -H 'accept: application/json' \
+            -H "Authorization: Basic $(echo -n server-api:${CLIENT_SECRET} | base64)" | jq -r '.access_token'
+  - name: submit-api-workflow
+    description: submits a workflow with the API token
+    actions:
+      - cmd: |
+          uds zarf tools kubectl get secret argo-workflows-client -n argo -o jsonpath="{.data['secret']}" | base64 -d
+        setVariables:
+          - name: CLIENT_SECRET
+      - cmd: |
+          curl -X 'POST' \
+            'https://sso.uds.dev/realms/uds/protocol/openid-connect/token' \
+            -d grant_type=client_credentials \
+            -H 'accept: application/json' \
+            -H "Authorization: Basic $(echo -n server-api:${CLIENT_SECRET} | base64)" | jq -r '.access_token'
+        setVariables:
+          - name: JWT
+      - cmd: |
+          curl -i -X 'POST' \
+            'https://workflows.uds.dev/api/v1/workflows/argo/submit' \
+            -H 'accept: application/json' \
+            -H 'Content-Type: application/json' \
+            -H "Authorization: Bearer ${JWT}" \
+            -d '{
+            "resourceName": "hello-world-template",
+            "resourceKind": "WorkflowTemplate",
+            "submitOptions": {
+                "generateName": "hello-world-",
+                "parameters": []
+              }
+            }'
