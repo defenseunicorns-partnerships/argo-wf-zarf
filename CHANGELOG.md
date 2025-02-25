@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.22](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.21...0.1.22) (2025-02-25)
+
+
+### Features
+
+* expose server ([#129](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/129)) ([7e20384](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/7e203847c56485a6465735e474c907b6b49f5925))
+
 ## [0.1.21](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.20...0.1.21) (2025-02-24)
 
 
