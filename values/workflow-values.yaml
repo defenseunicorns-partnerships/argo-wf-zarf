@@ -67,6 +67,18 @@ controller:
         key: PG_USER_PASSWORD
   workflowDefaults:
     spec:
+      metrics:
+        prometheus:
+          - name: workflow_failed_count
+            counter:
+              value: "1"
+            help: Failed workflow counter
+            labels:
+              - key: workflow-name
+                value: "{{ workflow.name }}"
+              - key: workflow_duration_seconds
+                value: "{{ workflow.duration }}"
+            when: "{{workflow.status}} == Failed || {{workflow.status}} == Error"
       activeDeadlineSeconds: 3600
       ttlStrategy:
         secondsAfterSuccess: !!int "###ZARF_VAR_WF_TTL_SECONDS_AFTER_SUCCESS###"
@@ -77,6 +89,8 @@ controller:
       podMetadata:
         annotations:
           workflows.argoproj.io/kill-cmd-istio-proxy: '["pilot-agent", "request", "POST", "quitquitquit"]'
+        labels:
+          app.kubernetes.io/part-of: argo-workflows
   # TODO: Resource limiting of workers etc.
   # -- Number of workflow workers
   workflowWorkers: # 32
@@ -90,6 +104,9 @@ controller:
   workflowRestrictions:
     templateReferencing: Secure
 
+  serviceAccount:
+    create: false
+    name: "controller-account"
 
   name: workflow-controller
   resources:

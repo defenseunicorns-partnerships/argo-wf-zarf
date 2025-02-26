@@ -46,3 +46,5 @@ spec:
   podMetadata:
     annotations:
       workflows.argoproj.io/kill-cmd-istio-proxy: '["pilot-agent", "request", "POST", "quitquitquit"]'
+    labels:
+      app.kubernetes.io/part-of: argo-workflows
