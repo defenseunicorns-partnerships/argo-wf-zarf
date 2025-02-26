@@ -28,7 +28,8 @@ postgresql:
   postgresPort: ###ZARF_VAR_PG_PORT###
   egressEnabled: ###ZARF_VAR_POSTGRES_EGRESS###
   existingSecret:
-    name: argo.pg-cluster.credentials.postgresql.acid.zalan.do
+    enabled: false
+    name: ###ZARF_VAR_POSTGRES_SECRET###
     userKey: username
     passwordKey: password
 aws:
