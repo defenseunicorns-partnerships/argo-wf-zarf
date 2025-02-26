@@ -175,10 +175,6 @@ components:
         repoName: postgresql
         valuesFiles:
           - values/postgres-values.yaml
-    manifests:
-      - name: postgres-secrets
-        files:
-          - manifests/postgres-secrets.yaml
     images:
       - bitnami/postgresql:15.6.0
   - name: postgresql
@@ -208,10 +204,6 @@ components:
           - values/postgres-values.yaml
     images:
           - registry1.dso.mil/ironbank/opensource/postgres/postgresql-alpine:15.6
-    manifests:
-      - name: postgres-secrets
-        files:
-          - manifests/postgres-secrets.yaml
   - name: argo-workflows
     required: true
     description: "Deploy Argo Workflow"
