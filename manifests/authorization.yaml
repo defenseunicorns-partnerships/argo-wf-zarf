@@ -16,5 +16,5 @@ spec:
         ports:
           - "2746"
     when:
-      - key: request.auth.claims[client_id]
+      - key: request.auth.presenter
         notValues: ["server-api"]
