@@ -144,23 +144,12 @@ components:
       - name: argo-namespace
         files:
           - manifests/namespace.yaml
-      - name: argo-setup
-        files:
-          - manifests/roles.yaml
-          - manifests/serviceaccounts.yaml
-          - manifests/service-account-tokens.yaml
           - manifests/peer-auth.yaml
-          - manifests/uds-package.yaml
-          - manifests/authorization.yaml
-      - name: argo-rolebindings
-        files:
-          - manifests/rolebindings.yaml
-  - name: dev-setup
-    required: false
-    manifests:
-      - name: minio-tokens
-        files:
-          - manifests/minio-secrets.yaml
+    charts:
+      - name: uds-argo-workflows
+        namespace: argo
+        version: 1.0.0 # x-release-please-version
+        localPath: ./chart
   - name: postgresql
     required: true
     description: "Deploy Postgresql"
