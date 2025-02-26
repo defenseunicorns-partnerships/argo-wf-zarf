@@ -1,20 +1,35 @@
+{{- if .Values.sso.apiEnabled }}
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  namespace: argo
+  namespace: {{ .Release.Namespace }}
   name: argo-server-auth
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: argo-workflows-server
+      app.kubernetes.io/name: {{ .Values.sso.selector }}
   action: DENY
   rules:
-  - to:
-    - operation:
-        methods: ["POST", "PUT", "DELETE"]
-        paths: ["/api/v1/*"]
-        ports:
-          - "2746"
-    when:
-      - key: request.auth.presenter
-        notValues: ["server-api"]
+    - to:
+      - operation:
+          methods: ["POST", "PUT", "DELETE"]
+          paths: ["/api/v1/*"]
+          ports:
+            - "2746"
+      when:
+        - key: request.auth.presenter
+          notValues:
+            - {{ .Values.sso.apiClientId }}
+  {{- if .Values.sso.disableApiIngress }}
+    - from:
+      - source:
+          namespaces:
+            - istio-tenant-gateway
+      - to:
+        - operation:
+            methods: ["POST", "PUT", "DELETE"]
+            paths: ["/api/v1/*"]
+            ports:
+              - "2746"
+  {{- end }}
+{{- end }}
