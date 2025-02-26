@@ -21,7 +21,7 @@ sso:
   selector: argo-workflows-server
   disapleApiIngress: true
 minio:
-  enabled: "###ZARF_VAR_MINIO_ENABLED###"
+  enabled: ###ZARF_VAR_DEV_DEPLOYMENT###
   accessKey: "###ZARF_VAR_S3_ACCESS_KEY###"
   secretKey: "###ZARF_VAR_S3_SECRET_KEY###"
 postgresql:
