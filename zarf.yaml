@@ -150,6 +150,8 @@ components:
         namespace: argo
         version: 1.0.0 # x-release-please-version
         localPath: ./chart
+        valuesFiles:
+          - values/setup-values.yaml
   - name: postgresql
     required: true
     description: "Deploy Postgresql"

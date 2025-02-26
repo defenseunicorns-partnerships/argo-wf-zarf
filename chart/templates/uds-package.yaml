@@ -54,12 +54,6 @@ spec:
         remoteGenerated: KubeAPI
         selector:
           app.kubernetes.io/part-of: argo-workflows
-      - direction: Egress
-        selector:
-          app.kubernetes.io/part-of: argo-workflows
-        remoteNamespace: postgres
-        ports:
-          - {{ .Values.postgresql.postgresPort }}
       #S3
       - direction: Egress
         ports:

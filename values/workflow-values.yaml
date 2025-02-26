@@ -23,27 +23,16 @@ controller:
   configMap:
     create: true
     name: "workflows"
-  #TODO: Decide on prometheus logging of controller
   metricsConfig:
-    # -- Enables prometheus metrics server
-    enabled: false
-    # -- Path is the path where metrics are emitted. Must start with a "/".
+    enabled: true
     path: /metrics
-    # -- Port is the port where metrics are emitted
     port: 9090
-    # -- How often custom metrics are cleared from memory
-    metricsTTL: ""
-    # -- Flag that instructs prometheus to ignore metric emission errors.
+    metricsTTL: "10m"
     ignoreErrors: false
-    # --  Flag that use a self-signed cert for TLS
     secure: false
-    # -- Container metrics port name
     portName: metrics
-    # -- Service metrics port
     servicePort: 8080
-    # -- Service metrics port name
     servicePortName: metrics
-    # -- Flag to enable headless service
     headlessService: false
     # -- ServiceMonitor relabel configs to apply to samples before scraping
     ## Ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
@@ -101,44 +90,8 @@ controller:
   workflowRestrictions:
     templateReferencing: Secure
 
-  #TODO: Prometheus telemetry
-  # as metrics by default, but can be overridden using this config.
-  telemetryConfig:
-    # -- Enables prometheus telemetry server
-    enabled: false
-    # -- telemetry path
-    path: /telemetry
-    # -- telemetry container port
-    port: 8081
-    # -- How often custom metrics are cleared from memory
-    metricsTTL: ""
-    # -- Flag that instructs prometheus to ignore metric emission errors.
-    ignoreErrors: false
-    # --  Flag that use a self-signed cert for TLS
-    secure: false
-    # -- telemetry service port
-    servicePort: 8081
-    # -- telemetry service port name
-    servicePortName: telemetry
-  serviceMonitor:
-    # -- Enable a prometheus ServiceMonitor
-    enabled: false
-    # -- Prometheus ServiceMonitor labels
-    additionalLabels: {}
-    # -- Prometheus ServiceMonitor namespace
-    namespace: "" # "monitoring"
-  serviceAccount:
-    # -- Create a service account for the controller
-    create: false
-    # -- Service account name
-    name: "controller-account"
-    # -- Labels applied to created service account
-    labels: {}
-    # -- Annotations applied to created service account
-    annotations: {}
 
   name: workflow-controller
-  #TODO: Set resources for controller
   resources:
     requests:
       memory: ###ZARF_VAR_CONTR_MEM_REQ###
