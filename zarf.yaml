@@ -28,6 +28,8 @@ variables:
     sensitive: true
   - name: PG_STORAGE_CLASS
     description: Storage class for postgresql
+  - name: POSTGRES_EGRESS
+    description: Bool value to enable egress on the PG_PORT
   - name: ARCHIVE_TTL
     description: Time to keep archived workflows in Postgres
     default: 10d

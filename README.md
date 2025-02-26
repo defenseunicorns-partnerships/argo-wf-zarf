@@ -101,6 +101,7 @@ curl -i -X 'POST' \
 | PG_USER                      | no       | None                      | User to associate the archive database with                                                                                                       |
 | PG_USER_PASSWORD             | no       | None                      | Password for the user associated with the archive database                                                                                        |
 | PG_STORAGE_CLASS             | no       | null                      | Storage class for the PVC (used in AWS to ensure gp3 PV)                                                                                          |
+| POSTGRES_EGRESS              | yes      | None                      | Whether to enable an egress on the PG_PORT (for postgres external to cluster like RDS)                                                            |
 | PSQL_REGISTRY                | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
 | PSQL_REPO                    | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
 | PSQL_TAG                     | no       | None                      | Used with flavors to build the zarf package                                                                                                       |
