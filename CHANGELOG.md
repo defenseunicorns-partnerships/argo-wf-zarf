@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/1.0.0...1.1.0) (2025-02-27)
+
+
+### Features
+
+* chart ([#133](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/133)) ([5acbf00](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/5acbf00cbb66245bf24799f84d4b6c7353fc4a32))
+
+
+### Bug Fixes
+
+* change POST rules to check presenter vice client_id ([#131](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/131)) ([cbe37b4](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/cbe37b4a440e73d40c50b7d49544eb90ab498645))
+
 ## [1.0.0](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/0.1.21...1.0.0) (2025-02-25)
 
 
