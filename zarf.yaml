@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: argo-workflows
   description: Templated deployment of Argo Workflows
-  version: 1.0.0 # x-release-please-version
+  version: 1.1.0 # x-release-please-version
 constants:
   - name: NAMESPACE
     description: the namespace to deploy argo-workflows to
@@ -148,7 +148,7 @@ components:
     charts:
       - name: uds-argo-workflows
         namespace: argo
-        version: 1.0.0 # x-release-please-version
+        version: 1.1.0 # x-release-please-version
         localPath: ./chart
         valuesFiles:
           - values/setup-values.yaml
