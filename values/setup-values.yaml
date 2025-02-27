@@ -1,0 +1,35 @@
+domain: "###ZARF_VAR_DOMAIN###"
+udsPackage:
+  enabled: true
+  name: argo-workflows
+  s3Port: 9000
+  host: workflows
+  serviceName: argo-workflows-server
+sso:
+  name: argo-workflows-login
+  enabled: true
+  apiEnabled: true
+  protocol: oidc
+  serverSecretName: sso-argo-server
+  apiSecretName: "###ZARF_VAR_CLIENT_SECRET###"
+  clientId: uds-argo-workflows-server
+  apiClientId: server-api
+  redirectURI: "https://workflows.###ZARF_VAR_DOMAIN###/oauth2/callback"
+  selector: argo-workflows-server
+  disapleApiIngress: true
+minio:
+  enabled: ###ZARF_VAR_DEV_DEPLOYMENT###
+  accessKey: "###ZARF_VAR_S3_ACCESS_KEY###"
+  secretKey: "###ZARF_VAR_S3_SECRET_KEY###"
+postgresql:
+  postgresPort: ###ZARF_VAR_PG_PORT###
+  egressEnabled: ###ZARF_VAR_POSTGRES_EGRESS###
+  existingSecret:
+    enabled: false
+    name: ###ZARF_VAR_POSTGRES_SECRET###
+    userKey: username
+    passwordKey: password
+  user: ###ZARF_VAR_PG_USER###
+  password: ###ZARF_VAR_PG_USER_PASSWORD###
+aws:
+  irsaRoleARN: "###ZARF_VAR_IRSA_ROLE_ARN###"

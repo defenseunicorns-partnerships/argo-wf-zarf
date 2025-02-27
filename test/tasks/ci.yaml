@@ -38,8 +38,7 @@ tasks:
       - cmd: uds zarf package create --skip-sbom --confirm --flavor vanilla --no-progress
       - cmd: |
           uds zarf -l debug --no-log-file package deploy \
-          zarf-package-argo-workflows-*.tar.zst --confirm \
-          --components=dev-setup
+          zarf-package-argo-workflows-*.tar.zst --confirm
   - name: package-down
     description: Uninstalls the zarf package
     actions:

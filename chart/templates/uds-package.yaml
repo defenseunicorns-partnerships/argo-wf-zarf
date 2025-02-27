@@ -1,0 +1,71 @@
+{{- if .Values.udsPackage.enabled }}
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: {{ .Values.udsPackage.name }}
+spec:
+  sso:
+  {{- if .Values.sso.enabled }}
+    - name: {{ .Values.sso.name }}
+      clientId: {{ .Values.sso.clientId }}
+      redirectUris:
+        - {{ .Values.sso.redirectURI }}
+      enableAuthserviceSelector:
+        app.kubernetes.io/name: {{ .Values.sso.selector }}
+      secretName: {{ .Values.sso.serverSecretName }}
+  {{- end }}
+  {{- if .Values.sso.apiEnabled }}
+    - name: argo-server-api
+      clientId: {{ .Values.sso.apiClientId }}
+      standardFlowEnabled: false
+      serviceAccountsEnabled: true
+      secretName: {{ .Values.sso.apiSecretName }}
+      protocolMappers:
+      - name: audience
+        protocol: "openid-connect"
+        protocolMapper: "oidc-audience-mapper"
+        config:
+          included.client.audience: {{ .Values.sso.clientId }}
+          access.token.claim: "true"
+          id.token.claim: "false"
+          lightweight.claim: "false"
+          userinfo.token.claim: "false"
+          introspection.token.claim: "true"
+  {{- end }}
+  network:
+    expose:
+      - description: Expose argo server to traffic
+        service: {{ .Values.udsPackage.serviceName }}
+        selector:
+          app.kubernetes.io/name: {{ .Values.sso.selector }}
+        host: {{ .Values.udsPackage.host }}
+        gateway: tenant
+        port: 2746
+    allow:
+      - direction: Ingress
+        remoteNamespace: monitoring
+        selector:
+          app.kubernetes.io/part-of: argo-workflows
+      - direction: Ingress
+        remoteGenerated: IntraNamespace
+      - direction: Egress
+        remoteGenerated: IntraNamespace
+      - direction: Egress
+        remoteGenerated: KubeAPI
+        selector:
+          app.kubernetes.io/part-of: argo-workflows
+      #S3
+      - direction: Egress
+        ports:
+          - {{ .Values.udsPackage.s3Port}}
+        selector:
+          app.kubernetes.io/part-of: argo-workflows
+      #POSTGRES
+    {{- if .Values.postgresql.enableEgress }}
+      - direction: Egress
+        ports:
+          - {{ .Values.postgresql.postgresPort }}
+        selector:
+          app.kubernetes.io/part-of: argo-workflows
+    {{- end }}
+{{- end }}

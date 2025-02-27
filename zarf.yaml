@@ -28,6 +28,8 @@ variables:
     sensitive: true
   - name: PG_STORAGE_CLASS
     description: Storage class for postgresql
+  - name: POSTGRES_EGRESS
+    description: Bool value to enable egress on the PG_PORT
   - name: ARCHIVE_TTL
     description: Time to keep archived workflows in Postgres
     default: 10d
@@ -142,23 +144,14 @@ components:
       - name: argo-namespace
         files:
           - manifests/namespace.yaml
-      - name: argo-setup
-        files:
-          - manifests/roles.yaml
-          - manifests/serviceaccounts.yaml
-          - manifests/service-account-tokens.yaml
           - manifests/peer-auth.yaml
-          - manifests/uds-package.yaml
-          - manifests/authorization.yaml
-      - name: argo-rolebindings
-        files:
-          - manifests/rolebindings.yaml
-  - name: dev-setup
-    required: false
-    manifests:
-      - name: minio-tokens
-        files:
-          - manifests/minio-secrets.yaml
+    charts:
+      - name: uds-argo-workflows
+        namespace: argo
+        version: 1.0.0 # x-release-please-version
+        localPath: ./chart
+        valuesFiles:
+          - values/setup-values.yaml
   - name: postgresql
     required: true
     description: "Deploy Postgresql"
@@ -184,10 +177,6 @@ components:
         repoName: postgresql
         valuesFiles:
           - values/postgres-values.yaml
-    manifests:
-      - name: postgres-secrets
-        files:
-          - manifests/postgres-secrets.yaml
     images:
       - bitnami/postgresql:15.6.0
   - name: postgresql
@@ -217,10 +206,6 @@ components:
           - values/postgres-values.yaml
     images:
           - registry1.dso.mil/ironbank/opensource/postgres/postgresql-alpine:15.6
-    manifests:
-      - name: postgres-secrets
-        files:
-          - manifests/postgres-secrets.yaml
   - name: argo-workflows
     required: true
     description: "Deploy Argo Workflow"

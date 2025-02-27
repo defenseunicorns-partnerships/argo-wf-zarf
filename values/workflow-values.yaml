@@ -23,27 +23,16 @@ controller:
   configMap:
     create: true
     name: "workflows"
-  #TODO: Decide on prometheus logging of controller
   metricsConfig:
-    # -- Enables prometheus metrics server
-    enabled: false
-    # -- Path is the path where metrics are emitted. Must start with a "/".
+    enabled: true
     path: /metrics
-    # -- Port is the port where metrics are emitted
     port: 9090
-    # -- How often custom metrics are cleared from memory
-    metricsTTL: ""
-    # -- Flag that instructs prometheus to ignore metric emission errors.
+    metricsTTL: "10m"
     ignoreErrors: false
-    # --  Flag that use a self-signed cert for TLS
     secure: false
-    # -- Container metrics port name
     portName: metrics
-    # -- Service metrics port
     servicePort: 8080
-    # -- Service metrics port name
     servicePortName: metrics
-    # -- Flag to enable headless service
     headlessService: false
     # -- ServiceMonitor relabel configs to apply to samples before scraping
     ## Ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
@@ -78,6 +67,18 @@ controller:
         key: PG_USER_PASSWORD
   workflowDefaults:
     spec:
+      metrics:
+        prometheus:
+          - name: workflow_failed_count
+            counter:
+              value: "1"
+            help: Failed workflow counter
+            labels:
+              - key: workflow-name
+                value: "{{ workflow.name }}"
+              - key: workflow_duration_seconds
+                value: "{{ workflow.duration }}"
+            when: "{{workflow.status}} == Failed || {{workflow.status}} == Error"
       activeDeadlineSeconds: 3600
       ttlStrategy:
         secondsAfterSuccess: !!int "###ZARF_VAR_WF_TTL_SECONDS_AFTER_SUCCESS###"
@@ -88,6 +89,8 @@ controller:
       podMetadata:
         annotations:
           workflows.argoproj.io/kill-cmd-istio-proxy: '["pilot-agent", "request", "POST", "quitquitquit"]'
+        labels:
+          app.kubernetes.io/part-of: argo-workflows
   # TODO: Resource limiting of workers etc.
   # -- Number of workflow workers
   workflowWorkers: # 32
@@ -101,44 +104,11 @@ controller:
   workflowRestrictions:
     templateReferencing: Secure
 
-  #TODO: Prometheus telemetry
-  # as metrics by default, but can be overridden using this config.
-  telemetryConfig:
-    # -- Enables prometheus telemetry server
-    enabled: false
-    # -- telemetry path
-    path: /telemetry
-    # -- telemetry container port
-    port: 8081
-    # -- How often custom metrics are cleared from memory
-    metricsTTL: ""
-    # -- Flag that instructs prometheus to ignore metric emission errors.
-    ignoreErrors: false
-    # --  Flag that use a self-signed cert for TLS
-    secure: false
-    # -- telemetry service port
-    servicePort: 8081
-    # -- telemetry service port name
-    servicePortName: telemetry
-  serviceMonitor:
-    # -- Enable a prometheus ServiceMonitor
-    enabled: false
-    # -- Prometheus ServiceMonitor labels
-    additionalLabels: {}
-    # -- Prometheus ServiceMonitor namespace
-    namespace: "" # "monitoring"
   serviceAccount:
-    # -- Create a service account for the controller
     create: false
-    # -- Service account name
     name: "controller-account"
-    # -- Labels applied to created service account
-    labels: {}
-    # -- Annotations applied to created service account
-    annotations: {}
 
   name: workflow-controller
-  #TODO: Set resources for controller
   resources:
     requests:
       memory: ###ZARF_VAR_CONTR_MEM_REQ###

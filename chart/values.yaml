@@ -1,0 +1,35 @@
+domain: uds.dev
+udsPackage:
+  enabled: true
+  name: argo-workflows
+  s3Port: 9000
+  host: workflows
+  serviceName: argo-workflows-server
+sso:
+  name: argo-workflows-login
+  enabled: true
+  apiEnabled: true
+  protocol: oidc
+  serverSecretName: sso-argo-server
+  apiSecretName: argo-workflows-client
+  clientId: uds-argo-workflows-server
+  apiClientId: server-api
+  redirectURI: "https://workflows.uds.dev/oauth2/callback"
+  selector: argo-workflows-server
+  disapleApiIngress: true
+minio:
+  enabled: true
+  accessKey: test-user
+  secretKey: test-password
+postgresql:
+  postgresPort: 5432
+  egressEnabled: false
+  existingSecret:
+    enabled: false
+    name: postgres-config-existing
+    userKey: username
+    passwordKey: password
+  user: argo
+  password: argo
+aws:
+  irsaRoleARN: null
