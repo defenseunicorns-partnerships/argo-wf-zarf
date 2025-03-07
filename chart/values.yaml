@@ -5,6 +5,10 @@ udsPackage:
   s3Port: 9000
   host: workflows
   serviceName: argo-workflows-server
+  server-ingress:
+    intraClusterEnabled: true
+    expose: true
+    intraClusterNamespace: wfapi
 sso:
   name: argo-workflows-login
   enabled: true
