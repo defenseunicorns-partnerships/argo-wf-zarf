@@ -2,4 +2,4 @@ apiVersion: v2
 name: uds-argo-workflows
 description: uds-argo-workflows
 type: application
-version: 1.2.0
+version: 1.1.1

@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.0](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/1.1.0...1.2.0) (2025-03-10)
+## [1.1.1](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/1.1.0...1.1.1) (2025-03-10)
 
 
 ### Features
