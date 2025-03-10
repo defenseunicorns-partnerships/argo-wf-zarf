@@ -5,6 +5,10 @@ udsPackage:
   s3Port: 9000
   host: workflows
   serviceName: argo-workflows-server
+  serverIngress:
+    intraClusterEnabled: true
+    expose: true
+    intraClusterNamespace: wfapi
 sso:
   name: argo-workflows-login
   enabled: true
@@ -16,7 +20,7 @@ sso:
   apiClientId: server-api
   redirectURI: "https://workflows.uds.dev/oauth2/callback"
   selector: argo-workflows-server
-  disapleApiIngress: true
+  disableApiIngress: false
 minio:
   enabled: true
   accessKey: test-user

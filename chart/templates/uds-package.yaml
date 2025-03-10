@@ -34,6 +34,7 @@ spec:
   {{- end }}
   network:
     expose:
+    {{- if .Values.udsPackage.serverIngress.expose }}
       - description: Expose argo server to traffic
         service: {{ .Values.udsPackage.serviceName }}
         selector:
@@ -41,11 +42,20 @@ spec:
         host: {{ .Values.udsPackage.host }}
         gateway: tenant
         port: 2746
+    {{- end }}
     allow:
       - direction: Ingress
         remoteNamespace: monitoring
         selector:
           app.kubernetes.io/part-of: argo-workflows
+    {{- if .Values.udsPackage.serverIngress.intraClusterEnabled }}
+      - direction: Ingress
+        remoteNamespace: {{ .Values.udsPackage.serverIngress.intraClusterNamespace }}
+        selector:
+          app.kubernetes.io/name: argo-workflows-server
+        ports:
+          - 2746
+    {{- end }}
       - direction: Ingress
         remoteGenerated: IntraNamespace
       - direction: Egress
