@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/1.1.0...1.2.0) (2025-03-10)
+
+
+### Features
+
+* enable intracluster ingress via values ([#135](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/135)) ([f5e28dc](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/f5e28dc86b61f5c306259358277b22eae4045acc))
+
+
+### Miscellaneous Chores
+
+* **deps:** update stable ([#126](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/issues/126)) ([d696bd5](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/commit/d696bd56a974df21c59c5e59ba8358cd745952e8))
+
 ## [1.1.0](https://github.com/defenseunicorns-partnerships/argo-wf-zarf/compare/1.0.0...1.1.0) (2025-02-27)
 
 
