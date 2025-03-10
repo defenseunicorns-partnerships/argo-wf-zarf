@@ -20,7 +20,7 @@ sso:
   apiClientId: server-api
   redirectURI: "https://workflows.uds.dev/oauth2/callback"
   selector: argo-workflows-server
-  disapleApiIngress: true
+  disableApiIngress: false
 minio:
   enabled: true
   accessKey: test-user
